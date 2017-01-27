@@ -38,9 +38,11 @@ template <typename T> Pager<T>::Pager(nlohmann::json pagerJson)
     for(nlohmann::json json : pagerJson["items"])
         items.push_back(T(json));
     limit = pagerJson["limit"];
-    next = pagerJson["next"];
+    if (!pagerJson["next"].is_null())
+        next = pagerJson["next"];
     offset = pagerJson["offset"];
-    previous = pagerJson["previous"];
+    if (!pagerJson["previous"].is_null())
+        previous = pagerJson["previous"];
     total = pagerJson["total"];
 }
 
