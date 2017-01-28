@@ -42,12 +42,12 @@ template <typename T> CursorPager<T>::CursorPager(nlohmann::json pagerJson)
     total = pagerJson["total"];
 }
 
-template <typename T> std::string CursorPager::GetHref()
+template <typename T> std::string CursorPager<T>::GetHref()
 {
     return href;
 }
 
-template <typename T> std::vector<T> CursorPager::GetItems()
+template <typename T> std::vector<T> CursorPager<T>::GetItems()
 {
     return items;
 }

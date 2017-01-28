@@ -1,7 +1,7 @@
 #include <iostream>
-#include "SpotifyService.h"
+#include "SpotifyAPI.h"
 
-SpotifyService::SpotifyService()
+SpotifyAPI::SpotifyAPI()
 {
     curl_global_init( CURL_GLOBAL_ALL );
 }
@@ -12,7 +12,7 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-std::shared_ptr<Album> SpotifyService::GetAlbum(std::string id)
+std::shared_ptr<Album> SpotifyAPI::GetAlbum(std::string id)
 {
     CURL * curl;
     CURLcode result;
