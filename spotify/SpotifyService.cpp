@@ -24,12 +24,18 @@ std::shared_ptr<Album> SpotifyService::GetAlbum(std::string id)
         return std::unique_ptr<Album>(new Album(nullptr));
     }
 
-    curl_easy_setopt(curl, CURLOPT_URL, "https://api.spotify.com/v1/albums/0sNOF9WDwhWunNAHPD3Baj");
+    curl_easy_setopt(curl, CURLOPT_URL, "https://api.spotify.com/v1/albums/6JWc4iAiJ9FjyK0B59ABb4");
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-    curl_easy_perform(curl);
-    curl_easy_cleanup(curl);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);  // Can't authenticate the certificate, so disable authentication.
+    int rc = curl_easy_perform(curl);
+    if (rc == CURLE_OK)
+    {
+        nlohmann::json json = nlohmann::json::parse(readBuffer);
+        return std::shared_ptr<Album>(new Album(json));
+    } else
+    {
+        std::cerr << "cURL error: " << rc << std::endl;
+    }
 
-    nlohmann::json json = nlohmann::json::parse(readBuffer);
-    return std::shared_ptr<Album>(new Album(json));
 }
