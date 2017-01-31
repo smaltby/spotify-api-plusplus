@@ -1,9 +1,9 @@
 #include "Track.h"
-#include "Album.h"
+#include "AlbumSimple.h"
 
 Track::Track(nlohmann::json trackJson) : TrackSimple::TrackSimple(trackJson)
 {
-    album = std::shared_ptr<Album>(new Album(trackJson["album"]));
+    album = std::shared_ptr<AlbumSimple>(new AlbumSimple(trackJson["album"]));
     for (auto it = trackJson["external_ids"].begin(); it != trackJson["external_ids"].end(); ++it)
         externalIds[it.key()] = it.value();
     popularity = trackJson["popularity"];
@@ -11,7 +11,7 @@ Track::Track(nlohmann::json trackJson) : TrackSimple::TrackSimple(trackJson)
 
 Track::~Track() = default;
 
-std::shared_ptr<Album> Track::GetAlbum()
+std::shared_ptr<AlbumSimple> Track::GetAlbum()
 {
     return album;
 }

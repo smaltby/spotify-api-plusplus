@@ -10,7 +10,7 @@
 #include "TrackSimple.h"
 #include <spotify/utils/json.h>
 
-class Album;
+class AlbumSimple;
 
 class Track : public TrackSimple
 {
@@ -18,12 +18,12 @@ public:
     Track(nlohmann::json trackJson);
     ~Track();
 
-    std::shared_ptr<Album> GetAlbum();
+    std::shared_ptr<AlbumSimple> GetAlbum();
     std::map<std::string, std::string> GetExternalIds();
     int GetPopularity();
 
 private:
-    std::shared_ptr<Album> album;
+    std::shared_ptr<AlbumSimple> album;
     std::map<std::string, std::string> externalIds;
     int popularity;
 };

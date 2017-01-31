@@ -2,7 +2,9 @@
 
 UserPublic::UserPublic(nlohmann::json userJson)
 {
-    displayName = userJson["display_name"];
+    std::cout << userJson.dump(4) << std::endl;
+    if(!userJson["display_name"].is_null())
+        displayName = userJson["display_name"];
     for (auto it = userJson["external_urls"].begin(); it != userJson["external_urls"].end(); ++it)
         externalUrls[it.key()] = it.value();
     followers = std::shared_ptr<Followers>(new Followers(userJson["followers"]));
