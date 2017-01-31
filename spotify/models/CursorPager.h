@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "Cursor.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 
 template <class T> class CursorPager

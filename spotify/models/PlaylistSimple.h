@@ -10,7 +10,7 @@
 #include "User.h"
 #include "PlaylistTrack.h"
 #include "Pager.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class PlaylistSimple
 {

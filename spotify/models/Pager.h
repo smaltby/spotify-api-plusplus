@@ -3,8 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <spotify/utils/json.h>
-
+#include <json.h>
 
 template <class T> class Pager
 {
@@ -58,27 +57,27 @@ template <typename T> std::vector<T> Pager<T>::GetItems()
 
 template <typename T> int Pager<T>::GetLimit()
 {
-    return 0;
+    return limit;
 }
 
 template <typename T> std::string Pager<T>::GetNext()
 {
-    return std::__cxx11::string();
+    return next;
 }
 
 template <typename T> int Pager<T>::GetOffset()
 {
-    return 0;
+    return offset;
 }
 
 template <typename T> std::string Pager<T>::GetPrevious()
 {
-    return std::__cxx11::string();
+    return previous;
 }
 
 template <typename T> int Pager<T>::GetTotal()
 {
-    return 0;
+    return total;
 }
 
 

@@ -8,7 +8,7 @@
 #include "TrackLink.h"
 #include "Artist.h"
 #include "TrackSimple.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class AlbumSimple;
 

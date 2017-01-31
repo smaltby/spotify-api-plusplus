@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Album.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class SavedAlbum
 {

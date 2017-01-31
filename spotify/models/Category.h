@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 #include "Image.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class Category
 {

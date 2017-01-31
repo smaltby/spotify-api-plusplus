@@ -7,7 +7,7 @@
 #include <memory>
 #include "Followers.h"
 #include "Image.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class UserPublic
 {

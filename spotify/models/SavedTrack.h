@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include "Track.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 
 class SavedTrack

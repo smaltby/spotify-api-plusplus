@@ -8,8 +8,7 @@
 #include "Followers.h"
 #include "Image.h"
 #include "ArtistSimple.h"
-#include <spotify/utils/json.h>
-
+#include <json.h>
 
 class Artist : public ArtistSimple
 {

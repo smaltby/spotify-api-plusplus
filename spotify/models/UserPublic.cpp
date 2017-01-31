@@ -2,7 +2,6 @@
 
 UserPublic::UserPublic(nlohmann::json userJson)
 {
-    std::cout << userJson.dump(4) << std::endl;
     if(!userJson["display_name"].is_null())
         displayName = userJson["display_name"];
     for (auto it = userJson["external_urls"].begin(); it != userJson["external_urls"].end(); ++it)
@@ -15,7 +14,6 @@ UserPublic::UserPublic(nlohmann::json userJson)
     type = userJson["type"];
     uri = userJson["uri"];
 }
-
 
 std::string UserPublic::GetDisplayName()
 {

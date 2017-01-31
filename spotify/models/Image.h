@@ -2,7 +2,7 @@
 #define SPOTIFY_PLUSPLUS_IMAGE_H
 
 #include <string>
-#include <spotify/utils/json.h>
+#include <json.h>
 
 
 class Image

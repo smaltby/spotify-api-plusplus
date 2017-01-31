@@ -10,7 +10,7 @@
 #include "Image.h"
 #include "Artist.h"
 #include "AlbumSimple.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class TrackSimple;
 

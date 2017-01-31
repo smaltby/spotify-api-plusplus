@@ -9,7 +9,7 @@
 #include "Copyright.h"
 #include "Image.h"
 #include "ArtistSimple.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class AlbumSimple
 {

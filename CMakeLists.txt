@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5.1)
 
 project(spotify-plusplus)
 
@@ -15,4 +15,3 @@ set(LIBS ${LIBS} ${CURL_LIBRARIES})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(spotify)
-add_subdirectory(examples)

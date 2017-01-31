@@ -7,7 +7,7 @@
 #include <memory>
 #include "TrackLink.h"
 #include "Artist.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class TrackSimple
 {

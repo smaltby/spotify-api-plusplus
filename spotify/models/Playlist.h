@@ -11,7 +11,7 @@
 #include "PlaylistTrack.h"
 #include "Pager.h"
 #include "PlaylistSimple.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 
 class Playlist : public PlaylistSimple

@@ -1,7 +1,7 @@
 #ifndef SPOTIFY_PLUSPLUS_TRACKLINK_H
 #define SPOTIFY_PLUSPLUS_TRACKLINK_H
 
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class TrackLink
 {

@@ -2,7 +2,7 @@
 #define SPOTIFY_PLUSPLUS_CURSOR_H
 
 #include <string>
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class Cursor
 {

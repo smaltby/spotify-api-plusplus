@@ -5,7 +5,7 @@
 #include <memory>
 #include "User.h"
 #include "Track.h"
-#include <spotify/utils/json.h>
+#include <json.h>
 
 class PlaylistTrack
 {
