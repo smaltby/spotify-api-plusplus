@@ -1,7 +1,7 @@
 #include <iostream>
 #include "SpotifyAPI.h"
 #include <curl/curl.h>
-#include <spotify/utils/CurlUtils.h>
+#include <utils/CurlUtils.h>
 
 SpotifyAPI::SpotifyAPI()
 {

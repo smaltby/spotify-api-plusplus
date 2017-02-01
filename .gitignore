@@ -44,3 +44,6 @@ CTestTestfile.cmake
 *.exe
 *.out
 *.app
+Testing/
+build/
+spotify-api-plusplus.cbp

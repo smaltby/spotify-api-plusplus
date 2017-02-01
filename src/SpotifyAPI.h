@@ -2,14 +2,14 @@
 #define SPOTIFY_PLUSPLUS_SPOTIFYSERVICE_H
 
 #include <string>
-#include <spotify/models/Track.h>
-#include <spotify/models/AudioFeatures.h>
-#include <spotify/models/Playlist.h>
-#include <spotify/models/Category.h>
-#include <spotify/models/CursorPager.h>
-#include <spotify/models/SavedTrack.h>
-#include <spotify/models/SavedAlbum.h>
-#include <spotify/models/Recommendations.h>
+#include <models/Track.h>
+#include <models/AudioFeatures.h>
+#include <models/Playlist.h>
+#include <models/Category.h>
+#include <models/CursorPager.h>
+#include <models/SavedTrack.h>
+#include <models/SavedAlbum.h>
+#include <models/Recommendations.h>
 #include "models/Album.h"
 
 typedef std::map<std::string, std::string> options_t;
