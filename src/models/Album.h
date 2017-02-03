@@ -5,12 +5,12 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include "utils/json.h"
 #include "Pager.h"
 #include "Copyright.h"
 #include "Image.h"
 #include "Artist.h"
 #include "AlbumSimple.h"
-#include <json.h>
 
 class TrackSimple;
 

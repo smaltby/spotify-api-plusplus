@@ -8,7 +8,7 @@
 #include "Followers.h"
 #include "Image.h"
 #include "UserPublic.h"
-#include <json.h>
+#include "utils/json.h"
 
 class User : public UserPublic
 {

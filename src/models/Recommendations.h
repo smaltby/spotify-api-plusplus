@@ -5,7 +5,7 @@
 #include <memory>
 #include "RecommendationsSeed.h"
 #include "Track.h"
-#include <json.h>
+#include "utils/json.h"
 
 class Recommendations
 {

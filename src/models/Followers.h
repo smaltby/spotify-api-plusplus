@@ -2,7 +2,7 @@
 #define SPOTIFY_PLUSPLUS_FOLLOWERS_H
 
 #include <string>
-#include <json.h>
+#include "utils/json.h"
 
 class Followers
 {
