@@ -16,16 +16,16 @@ class AlbumSimple
 public:
     AlbumSimple(nlohmann::json albumJson);
 
-    std::string GetAlbumType();
-    std::vector<std::shared_ptr<ArtistSimple>> GetArtists();
-    std::vector<std::string> GetAvailableMarkets();
-    std::map<std::string, std::string> GetExternalUrls();
-    std::string GetHref();
-    std::string GetId();
-    std::vector<std::shared_ptr<Image>> GetImages();
-    std::string GetName();
-    std::string GetType();
-    std::string GetUri();
+    std::string GetAlbumType() const;
+    std::vector<std::shared_ptr<ArtistSimple>> GetArtists() const;
+    std::vector<std::string> GetAvailableMarkets() const;
+    std::map<std::string, std::string> GetExternalUrls() const;
+    std::string GetHref() const;
+    std::string GetId() const;
+    std::vector<std::shared_ptr<Image>> GetImages() const;
+    std::string GetName() const;
+    std::string GetType() const;
+    std::string GetUri() const;
 
 private:
     std::string albumType;

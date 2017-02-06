@@ -18,52 +18,52 @@ AlbumSimple::AlbumSimple(nlohmann::json albumJson)
     uri = albumJson["uri"];
 }
 
-std::string AlbumSimple::GetAlbumType()
+std::string AlbumSimple::GetAlbumType() const
 {
     return albumType;
 }
 
-std::vector<std::shared_ptr<ArtistSimple>> AlbumSimple::GetArtists()
+std::vector<std::shared_ptr<ArtistSimple>> AlbumSimple::GetArtists() const
 {
     return artists;
 }
 
-std::vector<std::string> AlbumSimple::GetAvailableMarkets()
+std::vector<std::string> AlbumSimple::GetAvailableMarkets() const
 {
     return availableMarkets;
 }
 
-std::map<std::string, std::string> AlbumSimple::GetExternalUrls()
+std::map<std::string, std::string> AlbumSimple::GetExternalUrls() const
 {
     return externalUrls;
 }
 
-std::string AlbumSimple::GetHref()
+std::string AlbumSimple::GetHref() const
 {
     return href;
 }
 
-std::string AlbumSimple::GetId()
+std::string AlbumSimple::GetId() const
 {
     return id;
 }
 
-std::vector<std::shared_ptr<Image>> AlbumSimple::GetImages()
+std::vector<std::shared_ptr<Image>> AlbumSimple::GetImages() const
 {
     return images;
 }
 
-std::string AlbumSimple::GetName()
+std::string AlbumSimple::GetName() const
 {
     return name;
 }
 
-std::string AlbumSimple::GetType()
+std::string AlbumSimple::GetType() const
 {
     return type;
 }
 
-std::string AlbumSimple::GetUri()
+std::string AlbumSimple::GetUri() const
 {
     return uri;
 }

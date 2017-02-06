@@ -3,31 +3,6 @@
 #include <fstream>
 #include <gmock/gmock.h>
 
-class AClass {
-public:
-    AClass() : n_(0) {}
-
-    // A getter that returns a non-reference.
-    int n() const { return n_; }
-
-    void set_n(int new_n) { n_ = new_n; }
-
-    // A getter that returns a reference to const.
-    const std::string& s() const { return s_; }
-
-    void set_s(const std::string& new_s) { s_ = new_s; }
-
-    // A getter that returns a reference to non-const.
-    double& x() const { return x_; }
-private:
-    int n_;
-    std::string s_;
-
-    static double x_;
-};
-
-double AClass::x_ = 0.0;
-
 SpotifyAPI GetAPI()
 {
     SpotifyAPI api = SpotifyAPI();
@@ -45,8 +20,37 @@ TEST(TestEndpoints, GetAlbumTest)
 {
     SpotifyAPI api = GetAPI();
 
+    std::shared_ptr<Album> album = api.GetAlbum("0sNOF9WDwhWunNAHPD3Baj");
+    ASSERT_STREQ(album->GetName().c_str(), "She's So Unusual");
+}
+
+TEST(TestEndpoints, GetAlbumsTest)
+{
+    SpotifyAPI api = GetAPI();
+
+    std::vector<std::shared_ptr<Album>> albums = api.GetAlbums({"41MnTivkwTO3UUJ8DrqEJJ", "6JWc4iAiJ9FjyK0B59ABb4", "6UXCm6bOO4gFlDQZV5yL37"});
+    ASSERT_THAT(albums, testing::ElementsAre(testing::Property(&std::shared_ptr<Album>::operator*, testing::Property(&Album::GetName, testing::StrEq("The Best Of Keane (Deluxe Edition)"))),
+                                             testing::Property(&std::shared_ptr<Album>::operator*, testing::Property(&Album::GetName, testing::StrEq("Strangeland"))),
+                                             testing::Property(&std::shared_ptr<Album>::operator*, testing::Property(&Album::GetName, testing::StrEq("Night Train")))
+    ));
+}
+
+TEST(TestEndpoints, GetArtistTest)
+{
+    SpotifyAPI api = GetAPI();
+
     std::shared_ptr<Artist> artist = api.GetArtist("0OdUWJ0sBjDrqHygGUXeCF");
     ASSERT_STREQ(artist->GetName().c_str(), "Band of Horses");
+}
+
+TEST(TestEndpoints, GetArtistsTest)
+{
+    SpotifyAPI api = GetAPI();
+
+    std::vector<std::shared_ptr<Artist>> artists = api.GetArtists({"0oSGxfWSnnOXhD2fKuz2Gy", "3dBVyJ7JuOMt4GE9607Qin"});
+    ASSERT_THAT(artists, testing::ElementsAre(testing::Property(&std::shared_ptr<Artist>::operator*, testing::Property(&Artist::GetName, testing::StrEq("David Bowie"))),
+                                             testing::Property(&std::shared_ptr<Artist>::operator*, testing::Property(&Artist::GetName, testing::StrEq("T. Rex")))
+    ));
 }
 
 TEST(TestEndpoints, MyFollowedTest)
