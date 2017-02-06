@@ -17,7 +17,7 @@ public:
     std::map<std::string, std::string> GetExternalUrls();
     std::string GetHref();
     std::string GetId();
-    std::string GetName();
+    std::string GetName() const;
     std::string GetType();
     std::string GetUri();
 

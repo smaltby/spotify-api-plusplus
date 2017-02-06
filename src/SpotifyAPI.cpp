@@ -115,7 +115,8 @@ std::shared_ptr<User> SpotifyAPI::GetMe(options_t options)
 
 CursorPager<Artist> SpotifyAPI::GetMyFollowedArtists(options_t options)
 {
-    return CursorPager<Artist>(SpotifyGET("/v1/me/following", options, authToken));
+    options["type"] = "artist";
+    return CursorPager<Artist>(SpotifyGET("/v1/me/following", options, authToken)["artists"]);
 }
 
 void SpotifyAPI::FollowArtist(std::string artistId, options_t options)
@@ -123,4 +124,18 @@ void SpotifyAPI::FollowArtist(std::string artistId, options_t options)
     options["type"] = "artist";
     options["ids"] = artistId;
     SpotifyPUT("/v1/me/following", options, authToken);
+}
+
+void SpotifyAPI::FollowUser(std::string userId, options_t options)
+{
+    options["type"] = "user";
+    options["ids"] = userId;
+    SpotifyPUT("/v1/me/following", options, authToken);
+}
+
+void SpotifyAPI::UnfollowArtist(std::string artistId, options_t options)
+{
+    options["type"] = "artist";
+    options["ids"] = artistId;
+    SpotifyDELETE("/v1/me/following", options, authToken);
 }

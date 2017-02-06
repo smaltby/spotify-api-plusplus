@@ -2,7 +2,8 @@
 
 Cursor::Cursor(nlohmann::json cursorJson)
 {
-    after = cursorJson["after"];
+    if(!cursorJson["after"].is_null())
+        after = cursorJson["after"];
 }
 
 std::string Cursor::GetAfter()

@@ -26,7 +26,7 @@ std::string ArtistSimple::GetId()
     return id;
 }
 
-std::string ArtistSimple::GetName()
+std::string ArtistSimple::GetName() const
 {
     return name;
 }

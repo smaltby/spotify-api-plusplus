@@ -14,20 +14,20 @@ set(LIBS ${LIBS} ${CURL_LIBRARIES})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_subdirectory(src)
 
-if(BUILD_TESTS)
-    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest/googletest/include)
-    add_subdirectory(gtest)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest/googletest/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest/googlemock/include)
 
-    add_executable(TestGetAlbum tests/TestGetAlbum.cpp)
+add_subdirectory(gtest)
 
-    target_link_libraries(
-            TestGetAlbum
-            gtest
-            gtest_main
-            spotify-api-plusplus
-            pthread
-    )
+add_executable(TestEndpoints tests/TestEndpoints.cpp)
 
-    enable_testing()
-    add_test(TestGetAlbum ${PROJECT_BINARY_DIR}/TestGetAlbum)
-endif(BUILD_TESTS)
+target_link_libraries(
+        TestEndpoints
+        gtest
+        gtest_main
+        spotify-api-plusplus
+        pthread
+)
+
+enable_testing()
+add_test(TestEndpoints ${PROJECT_BINARY_DIR}/TestEndpoints)
