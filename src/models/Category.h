@@ -12,10 +12,10 @@ class Category
 public:
     Category(nlohmann::json copyrightJson);
     
-    std::string GetHref();
-    std::vector<std::shared_ptr<Image>> GetIcons();
-    std::string GetId();
-    std::string GetName();
+    std::string GetHref() const;
+    std::vector<std::shared_ptr<Image>> GetIcons() const;
+    std::string GetId() const;
+    std::string GetName() const;
 
 private:
     std::string href;

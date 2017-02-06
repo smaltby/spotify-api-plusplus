@@ -6,12 +6,12 @@ SavedAlbum::SavedAlbum(nlohmann::json albumJson)
     album = std::shared_ptr<Album>(new Album(albumJson["album"]));
 }
 
-std::string SavedAlbum::GetAddedAt()
+std::string SavedAlbum::GetAddedAt() const
 {
     return addedAt;
 }
 
-std::shared_ptr<Album> SavedAlbum::GetAlbum()
+std::shared_ptr<Album> SavedAlbum::GetAlbum() const
 {
     return album;
 }

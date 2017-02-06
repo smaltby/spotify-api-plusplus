@@ -9,8 +9,8 @@ class Followers
 public:
     Followers(nlohmann::json followersJson);
 
-    std::string GetHref();
-    int GetTotal();
+    std::string GetHref() const;
+    int GetTotal() const;
 
 private:
     std::string href;

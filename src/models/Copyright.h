@@ -9,8 +9,8 @@ class Copyright
 public:
     Copyright(nlohmann::json copyrightJson);
 
-    std::string GetText();
-    std::string GetType();
+    std::string GetText() const;
+    std::string GetType() const;
 
 private:
     std::string text;

@@ -13,12 +13,12 @@ public:
     CursorPager<T>();
     CursorPager<T>(nlohmann::json pagerJson);
 
-    std::string GetHref();
-    std::vector<T> GetItems();
-    int GetLimit();
-    std::string GetNext();
-    std::shared_ptr<Cursor> GetCursors();
-    int GetTotal();
+    std::string GetHref() const;
+    std::vector<T> GetItems() const;
+    int GetLimit() const;
+    std::string GetNext() const;
+    std::shared_ptr<Cursor> GetCursors() const;
+    int GetTotal() const;
 
 private:
     std::string href;
@@ -43,32 +43,32 @@ template <typename T> CursorPager<T>::CursorPager(nlohmann::json pagerJson)
     total = pagerJson["total"];
 }
 
-template <typename T> std::string CursorPager<T>::GetHref()
+template <typename T> std::string CursorPager<T>::GetHref() const
 {
     return href;
 }
 
-template <typename T> std::vector<T> CursorPager<T>::GetItems()
+template <typename T> std::vector<T> CursorPager<T>::GetItems() const
 {
     return items;
 }
 
-template <typename T> int CursorPager<T>::GetLimit()
+template <typename T> int CursorPager<T>::GetLimit() const
 {
     return limit;
 }
 
-template <typename T> std::string CursorPager<T>::GetNext()
+template <typename T> std::string CursorPager<T>::GetNext() const
 {
     return next;
 }
 
-template <typename T> std::shared_ptr<Cursor> CursorPager<T>::GetCursors()
+template <typename T> std::shared_ptr<Cursor> CursorPager<T>::GetCursors() const
 {
     return cursors;
 }
 
-template <typename T> int CursorPager<T>::GetTotal()
+template <typename T> int CursorPager<T>::GetTotal() const
 {
     return total;
 }

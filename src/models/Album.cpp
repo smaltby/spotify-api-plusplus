@@ -17,42 +17,42 @@ Album::Album(nlohmann::json albumJson) : AlbumSimple::AlbumSimple(albumJson)
 
 Album::~Album() = default;
 
-std::vector<std::shared_ptr<Copyright>> Album::GetCopyrights()
+std::vector<std::shared_ptr<Copyright>> Album::GetCopyrights() const
 {
     return copyrights;
 }
 
-std::map<std::string, std::string> Album::GetExternalIds()
+std::map<std::string, std::string> Album::GetExternalIds() const
 {
     return externalIds;
 }
 
-std::vector<std::string> Album::GetGenres()
+std::vector<std::string> Album::GetGenres() const
 {
     return genres;
 }
 
-std::string Album::GetLabel()
+std::string Album::GetLabel() const
 {
     return label;
 }
 
-int Album::GetPopularity()
+int Album::GetPopularity() const
 {
     return popularity;
 }
 
-std::string Album::GetReleaseDate()
+std::string Album::GetReleaseDate() const
 {
     return releaseDate;
 }
 
-std::string Album::GetReleaseDatePrecision()
+std::string Album::GetReleaseDatePrecision() const
 {
     return releaseDatePrecision;
 }
 
-Pager<TrackSimple> Album::GetTracks()
+Pager<TrackSimple> Album::GetTracks() const
 {
     return tracks;
 }

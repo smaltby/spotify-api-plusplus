@@ -9,22 +9,22 @@ Category::Category(nlohmann::json categoryJson)
     name = categoryJson["name"];
 }
 
-std::string Category::GetHref()
+std::string Category::GetHref() const
 {
     return href;
 }
 
-std::vector<std::shared_ptr<Image>> Category::GetIcons()
+std::vector<std::shared_ptr<Image>> Category::GetIcons() const
 {
     return icons;
 }
 
-std::string Category::GetId()
+std::string Category::GetId() const
 {
     return id;
 }
 
-std::string Category::GetName()
+std::string Category::GetName() const
 {
     return name;
 }

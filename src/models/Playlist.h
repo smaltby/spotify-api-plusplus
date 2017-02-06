@@ -19,8 +19,8 @@ class Playlist : public PlaylistSimple
 public:
     Playlist(nlohmann::json playlistJson);
 
-    std::string GetDescription();
-    std::shared_ptr<Followers> GetFollowers();
+    std::string GetDescription() const;
+    std::shared_ptr<Followers> GetFollowers() const;
 
 private:
     std::string description;

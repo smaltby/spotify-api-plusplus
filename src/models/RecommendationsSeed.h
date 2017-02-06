@@ -9,12 +9,12 @@ class RecommendationsSeed
 public:
     RecommendationsSeed(nlohmann::json reccomendationsJson);
 
-    int GetAfterFilteringSize();
-    int GetAfterRelinkingSize();
-    std::string GetHref();
-    std::string GetId();
-    int GetInitialPoolSize();
-    std::string GetType();
+    int GetAfterFilteringSize() const;
+    int GetAfterRelinkingSize() const;
+    std::string GetHref() const;
+    std::string GetId() const;
+    int GetInitialPoolSize() const;
+    std::string GetType() const;
 
 private:
     int afterFilteringSize;

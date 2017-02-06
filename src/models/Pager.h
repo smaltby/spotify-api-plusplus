@@ -11,13 +11,13 @@ public:
     Pager<T>();
     Pager<T>(nlohmann::json pagerJson);
 
-    std::string GetHref();
-    std::vector<T> GetItems();
-    int GetLimit();
-    std::string GetNext();
-    int GetOffset();
-    std::string GetPrevious();
-    int GetTotal();
+    std::string GetHref() const;
+    std::vector<T> GetItems() const;
+    int GetLimit() const;
+    std::string GetNext() const;
+    int GetOffset() const;
+    std::string GetPrevious() const;
+    int GetTotal() const;
 
 private:
     std::string href;
@@ -45,37 +45,37 @@ template <typename T> Pager<T>::Pager(nlohmann::json pagerJson)
     total = pagerJson["total"];
 }
 
-template <typename T> std::string Pager<T>::GetHref()
+template <typename T> std::string Pager<T>::GetHref() const
 {
     return href;
 }
 
-template <typename T> std::vector<T> Pager<T>::GetItems()
+template <typename T> std::vector<T> Pager<T>::GetItems() const
 {
     return items;
 }
 
-template <typename T> int Pager<T>::GetLimit()
+template <typename T> int Pager<T>::GetLimit() const
 {
     return limit;
 }
 
-template <typename T> std::string Pager<T>::GetNext()
+template <typename T> std::string Pager<T>::GetNext() const
 {
     return next;
 }
 
-template <typename T> int Pager<T>::GetOffset()
+template <typename T> int Pager<T>::GetOffset() const
 {
     return offset;
 }
 
-template <typename T> std::string Pager<T>::GetPrevious()
+template <typename T> std::string Pager<T>::GetPrevious() const
 {
     return previous;
 }
 
-template <typename T> int Pager<T>::GetTotal()
+template <typename T> int Pager<T>::GetTotal() const
 {
     return total;
 }

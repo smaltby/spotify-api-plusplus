@@ -15,10 +15,10 @@ class User : public UserPublic
 public:
     User(nlohmann::json userJson);
 
-    std::string GetBirthdate();
-    std::string GetCountry();
-    std::string GetEmail();
-    std::string GetProduct();
+    std::string GetBirthdate() const;
+    std::string GetCountry() const;
+    std::string GetEmail() const;
+    std::string GetProduct() const;
 
 private:
     std::string birthdate;

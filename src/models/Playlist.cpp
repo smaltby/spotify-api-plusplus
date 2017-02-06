@@ -6,12 +6,12 @@ Playlist::Playlist(nlohmann::json playlistJson) : PlaylistSimple::PlaylistSimple
     followers = std::shared_ptr<Followers>(new Followers(playlistJson["followers"]));
 }
 
-std::string Playlist::GetDescription()
+std::string Playlist::GetDescription() const
 {
     return description;
 }
 
-std::shared_ptr<Followers> Playlist::GetFollowers()
+std::shared_ptr<Followers> Playlist::GetFollowers() const
 {
     return followers;
 }

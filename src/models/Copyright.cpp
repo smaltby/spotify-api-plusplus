@@ -6,12 +6,12 @@ Copyright::Copyright(nlohmann::json copyrightJson)
     type = copyrightJson["type"];
 }
 
-std::string Copyright::GetText()
+std::string Copyright::GetText() const
 {
     return text;
 }
 
-std::string Copyright::GetType()
+std::string Copyright::GetType() const
 {
     return type;
 }

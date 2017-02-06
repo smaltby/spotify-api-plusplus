@@ -6,12 +6,12 @@ SavedTrack::SavedTrack(nlohmann::json trackJson)
     track = std::shared_ptr<Track>(new Track(trackJson["track"]));
 }
 
-std::string SavedTrack::GetAddedAt()
+std::string SavedTrack::GetAddedAt() const
 {
     return addedAt;
 }
 
-std::shared_ptr<Track> SavedTrack::GetTrack()
+std::shared_ptr<Track> SavedTrack::GetTrack() const
 {
     return track;
 }

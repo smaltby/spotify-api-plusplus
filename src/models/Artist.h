@@ -15,10 +15,10 @@ class Artist : public ArtistSimple
 public:
     Artist(nlohmann::json artistJson);
 
-    std::shared_ptr<Followers> GetFollowers();
-    std::vector<std::string> GetGenres();
-    std::vector<std::shared_ptr<Image>> GetImages();
-    int GetPopularity();
+    std::shared_ptr<Followers> GetFollowers() const;
+    std::vector<std::string> GetGenres() const;
+    std::vector<std::shared_ptr<Image>> GetImages() const;
+    int GetPopularity() const;
 
 private:
 

@@ -7,17 +7,17 @@ Image::Image(nlohmann::json imageJson)
     width = imageJson["width"];
 }
 
-int Image::GetHeight()
+int Image::GetHeight() const
 {
     return height;
 }
 
-std::string Image::GetUrl()
+std::string Image::GetUrl() const
 {
     return url;
 }
 
-int Image::GetWidth()
+int Image::GetWidth() const
 {
     return width;
 }

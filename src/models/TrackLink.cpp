@@ -10,27 +10,27 @@ TrackLink::TrackLink(nlohmann::json trackJson)
     uri = trackJson["uri"];
 }
 
-std::map<std::string, std::string> TrackLink::GetExternalUrls()
+std::map<std::string, std::string> TrackLink::GetExternalUrls() const
 {
     return externalUrls;
 }
 
-std::string TrackLink::GetHref()
+std::string TrackLink::GetHref() const
 {
     return href;
 }
 
-std::string TrackLink::GetId()
+std::string TrackLink::GetId() const
 {
     return id;
 }
 
-std::string TrackLink::GetType()
+std::string TrackLink::GetType() const
 {
     return type;
 }
 
-std::string TrackLink::GetUri()
+std::string TrackLink::GetUri() const
 {
     return uri;
 }

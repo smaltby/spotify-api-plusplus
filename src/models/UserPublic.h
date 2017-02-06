@@ -14,14 +14,14 @@ class UserPublic
 public:
     UserPublic(nlohmann::json userJson);
 
-    std::string GetDisplayName();
-    std::map<std::string, std::string> GetExternalUrls();
-    std::shared_ptr<Followers> GetFollowers();
-    std::string GetHref();
-    std::string GetId();
-    std::vector<std::shared_ptr<Image>> GetImages();
-    std::string GetType();
-    std::string GetUri();
+    std::string GetDisplayName() const;
+    std::map<std::string, std::string> GetExternalUrls() const;
+    std::shared_ptr<Followers> GetFollowers() const;
+    std::string GetHref() const;
+    std::string GetId() const;
+    std::vector<std::shared_ptr<Image>> GetImages() const;
+    std::string GetType() const;
+    std::string GetUri() const;
 
 private:
     std::string displayName;

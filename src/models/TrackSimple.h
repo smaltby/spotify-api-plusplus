@@ -14,21 +14,21 @@ class TrackSimple
 public:
     TrackSimple(nlohmann::json trackJson);
 
-    std::vector<std::shared_ptr<ArtistSimple>> GetArtists();
-    std::vector<std::string> GetAvailableMarkets();
-    int GetDiscNumber();
-    int GetDurationMs();
-    bool IsExplicit();
-    std::map<std::string, std::string> GetExternalUrls();
-    std::string GetHref();
-    std::string GetId();
-    bool IsPlayable();
-    std::shared_ptr<TrackLink> GetLinkedFrom();
-    std::string GetName();
-    std::string GetPreviewUrl();
-    int GetTrackNumber();
-    std::string GetType();
-    std::string GetUri();
+    std::vector<std::shared_ptr<ArtistSimple>> GetArtists() const;
+    std::vector<std::string> GetAvailableMarkets() const;
+    int GetDiscNumber() const;
+    int GetDurationMs() const;
+    bool IsExplicit() const;
+    std::map<std::string, std::string> GetExternalUrls() const;
+    std::string GetHref() const;
+    std::string GetId() const;
+    bool IsPlayable() const;
+    std::shared_ptr<TrackLink> GetLinkedFrom() const;
+    std::string GetName() const;
+    std::string GetPreviewUrl() const;
+    int GetTrackNumber() const;
+    std::string GetType() const;
+    std::string GetUri() const;
 
 private:
     std::vector<std::shared_ptr<ArtistSimple>> artists;

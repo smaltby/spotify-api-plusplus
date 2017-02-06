@@ -8,22 +8,22 @@ PlaylistTrack::PlaylistTrack(nlohmann::json trackJson)
     track =std::shared_ptr<Track>(new Track(trackJson["track"]));
 }
 
-std::string PlaylistTrack::GetAddedAt()
+std::string PlaylistTrack::GetAddedAt() const
 {
     return addedAt;
 }
 
-std::shared_ptr<User> PlaylistTrack::GetAddedBy()
+std::shared_ptr<User> PlaylistTrack::GetAddedBy() const
 {
     return addedBy;
 }
 
-bool PlaylistTrack::IsLocal()
+bool PlaylistTrack::IsLocal() const
 {
     return isLocal;
 }
 
-std::shared_ptr<Track> PlaylistTrack::GetTrack()
+std::shared_ptr<Track> PlaylistTrack::GetTrack() const
 {
     return track;
 }

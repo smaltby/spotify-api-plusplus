@@ -8,7 +8,7 @@ class Cursor
 {
 public:
     Cursor(nlohmann::json cursorJson);
-    std::string GetAfter();
+    std::string GetAfter() const;
 
 private:
     std::string after;

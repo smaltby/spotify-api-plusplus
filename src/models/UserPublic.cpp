@@ -15,42 +15,42 @@ UserPublic::UserPublic(nlohmann::json userJson)
     uri = userJson["uri"];
 }
 
-std::string UserPublic::GetDisplayName()
+std::string UserPublic::GetDisplayName() const
 {
     return displayName;
 }
 
-std::map<std::string, std::string> UserPublic::GetExternalUrls()
+std::map<std::string, std::string> UserPublic::GetExternalUrls() const
 {
     return externalUrls;
 }
 
-std::shared_ptr<Followers> UserPublic::GetFollowers()
+std::shared_ptr<Followers> UserPublic::GetFollowers() const
 {
     return followers;
 }
 
-std::string UserPublic::GetHref()
+std::string UserPublic::GetHref() const
 {
     return href;
 }
 
-std::string UserPublic::GetId()
+std::string UserPublic::GetId() const
 {
     return id;
 }
 
-std::vector<std::shared_ptr<Image>> UserPublic::GetImages()
+std::vector<std::shared_ptr<Image>> UserPublic::GetImages() const
 {
     return images;
 }
 
-std::string UserPublic::GetType()
+std::string UserPublic::GetType() const
 {
     return type;
 }
 
-std::string UserPublic::GetUri()
+std::string UserPublic::GetUri() const
 {
     return uri;
 }

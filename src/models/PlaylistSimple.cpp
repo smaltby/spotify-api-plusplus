@@ -18,62 +18,62 @@ PlaylistSimple::PlaylistSimple(nlohmann::json playlistJson)
     uri = playlistJson["uri"];
 }
 
-bool PlaylistSimple::IsCollaborative()
+bool PlaylistSimple::IsCollaborative() const
 {
     return isCollaborative;
 }
 
-std::map<std::string, std::string> PlaylistSimple::GetExternalUrls()
+std::map<std::string, std::string> PlaylistSimple::GetExternalUrls() const
 {
     return externalUrls;
 }
 
-std::string PlaylistSimple::GetHref()
+std::string PlaylistSimple::GetHref() const
 {
     return href;
 }
 
-std::string PlaylistSimple::GetId()
+std::string PlaylistSimple::GetId() const
 {
     return id;
 }
 
-std::vector<std::shared_ptr<Image>> PlaylistSimple::GetImages()
+std::vector<std::shared_ptr<Image>> PlaylistSimple::GetImages() const
 {
     return images;
 }
 
-std::string PlaylistSimple::GetName()
+std::string PlaylistSimple::GetName() const
 {
     return name;
 }
 
-std::shared_ptr<User> PlaylistSimple::GetOwner()
+std::shared_ptr<User> PlaylistSimple::GetOwner() const
 {
     return owner;
 }
 
-bool PlaylistSimple::IsPublic()
+bool PlaylistSimple::IsPublic() const
 {
     return isPublic;
 }
 
-std::string PlaylistSimple::GetSnapshotId()
+std::string PlaylistSimple::GetSnapshotId() const
 {
     return snapshotId;
 }
 
-Pager<PlaylistTrack> PlaylistSimple::GetTracks()
+Pager<PlaylistTrack> PlaylistSimple::GetTracks() const
 {
     return tracks;
 }
 
-std::string PlaylistSimple::GetType()
+std::string PlaylistSimple::GetType() const
 {
     return type;
 }
 
-std::string PlaylistSimple::GetUri()
+std::string PlaylistSimple::GetUri() const
 {
     return uri;
 }

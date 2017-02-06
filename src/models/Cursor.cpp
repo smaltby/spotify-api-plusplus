@@ -6,7 +6,7 @@ Cursor::Cursor(nlohmann::json cursorJson)
         after = cursorJson["after"];
 }
 
-std::string Cursor::GetAfter()
+std::string Cursor::GetAfter() const
 {
     return after;
 }

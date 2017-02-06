@@ -10,8 +10,8 @@ class SavedAlbum
 public:
     SavedAlbum(nlohmann::json albumJson);
 
-    std::string GetAddedAt();
-    std::shared_ptr<Album> GetAlbum();
+    std::string GetAddedAt() const;
+    std::shared_ptr<Album> GetAlbum() const;
 
 private:
     std::string addedAt;

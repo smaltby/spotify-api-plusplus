@@ -10,9 +10,9 @@ class Image
 public:
     Image(nlohmann::json imageJson);
 
-    int GetHeight();
-    std::string GetUrl();
-    int GetWidth();
+    int GetHeight() const;
+    std::string GetUrl() const;
+    int GetWidth() const;
 
 private:
     int height;

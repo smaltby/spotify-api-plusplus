@@ -18,9 +18,9 @@ public:
     Track(nlohmann::json trackJson);
     ~Track();
 
-    std::shared_ptr<AlbumSimple> GetAlbum();
-    std::map<std::string, std::string> GetExternalIds();
-    int GetPopularity();
+    std::shared_ptr<AlbumSimple> GetAlbum() const;
+    std::map<std::string, std::string> GetExternalIds() const;
+    int GetPopularity() const;
 
 private:
     std::shared_ptr<AlbumSimple> album;

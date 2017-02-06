@@ -12,8 +12,8 @@ class Recommendations
 public:
     Recommendations(nlohmann::json reccomendationsJson);
 
-    std::vector<std::shared_ptr<RecommendationsSeed>> GetSeeds();
-    std::vector<std::shared_ptr<Track>> GetTracks();
+    std::vector<std::shared_ptr<RecommendationsSeed>> GetSeeds() const;
+    std::vector<std::shared_ptr<Track>> GetTracks() const;
 
 private:
     std::vector<std::shared_ptr<RecommendationsSeed>> seeds;

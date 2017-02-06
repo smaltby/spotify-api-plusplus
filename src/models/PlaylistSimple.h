@@ -17,18 +17,18 @@ class PlaylistSimple
 public:
     PlaylistSimple(nlohmann::json playlistJson);
 
-    bool IsCollaborative();
-    std::map<std::string, std::string> GetExternalUrls();
-    std::string GetHref();
-    std::string GetId();
-    std::vector<std::shared_ptr<Image>> GetImages();
-    std::string GetName();
-    std::shared_ptr<User> GetOwner();
-    bool IsPublic();
-    std::string GetSnapshotId();
-    Pager<PlaylistTrack> GetTracks();
-    std::string GetType();
-    std::string GetUri();
+    bool IsCollaborative() const;
+    std::map<std::string, std::string> GetExternalUrls() const;
+    std::string GetHref() const;
+    std::string GetId() const;
+    std::vector<std::shared_ptr<Image>> GetImages() const;
+    std::string GetName() const;
+    std::shared_ptr<User> GetOwner() const;
+    bool IsPublic() const;
+    std::string GetSnapshotId() const;
+    Pager<PlaylistTrack> GetTracks() const;
+    std::string GetType() const;
+    std::string GetUri() const;
 
 private:
     bool isCollaborative;

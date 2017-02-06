@@ -11,17 +11,17 @@ Track::Track(nlohmann::json trackJson) : TrackSimple::TrackSimple(trackJson)
 
 Track::~Track() = default;
 
-std::shared_ptr<AlbumSimple> Track::GetAlbum()
+std::shared_ptr<AlbumSimple> Track::GetAlbum() const
 {
     return album;
 }
 
-std::map<std::string, std::string> Track::GetExternalIds()
+std::map<std::string, std::string> Track::GetExternalIds() const
 {
     return externalIds;
 }
 
-int Track::GetPopularity()
+int Track::GetPopularity() const
 {
     return popularity;
 }

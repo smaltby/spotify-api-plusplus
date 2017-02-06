@@ -24,77 +24,77 @@ TrackSimple::TrackSimple(nlohmann::json trackJson)
     uri = trackJson["uri"];
 }
 
-std::vector<std::shared_ptr<ArtistSimple>> TrackSimple::GetArtists()
+std::vector<std::shared_ptr<ArtistSimple>> TrackSimple::GetArtists() const
 {
     return artists;
 }
 
-std::vector<std::string> TrackSimple::GetAvailableMarkets()
+std::vector<std::string> TrackSimple::GetAvailableMarkets() const
 {
     return availableMarkets;
 }
 
-int TrackSimple::GetDiscNumber()
+int TrackSimple::GetDiscNumber() const
 {
     return discNumber;
 }
 
-int TrackSimple::GetDurationMs()
+int TrackSimple::GetDurationMs() const
 {
     return durationMs;
 }
 
-bool TrackSimple::IsExplicit()
+bool TrackSimple::IsExplicit() const
 {
     return isExplicit;
 }
 
-std::map<std::string, std::string> TrackSimple::GetExternalUrls()
+std::map<std::string, std::string> TrackSimple::GetExternalUrls() const
 {
     return externalUrls;
 }
 
-std::string TrackSimple::GetHref()
+std::string TrackSimple::GetHref() const
 {
     return href;
 }
 
-std::string TrackSimple::GetId()
+std::string TrackSimple::GetId() const
 {
     return id;
 }
 
-bool TrackSimple::IsPlayable()
+bool TrackSimple::IsPlayable() const
 {
     return isPlayable;
 }
 
-std::shared_ptr<TrackLink> TrackSimple::GetLinkedFrom()
+std::shared_ptr<TrackLink> TrackSimple::GetLinkedFrom() const
 {
     return linkedFrom;
 }
 
-std::string TrackSimple::GetName()
+std::string TrackSimple::GetName() const
 {
     return name;
 }
 
-std::string TrackSimple::GetPreviewUrl()
+std::string TrackSimple::GetPreviewUrl() const
 {
     return previewUrl;
 }
 
-int TrackSimple::GetTrackNumber()
+int TrackSimple::GetTrackNumber() const
 {
     return trackNumber;
 }
 
-std::string TrackSimple::GetType()
+std::string TrackSimple::GetType() const
 {
     return type;
 }
 
-std::string TrackSimple::GetUri()
+std::string TrackSimple::GetUri() const
 {
     return uri;
 }

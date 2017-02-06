@@ -20,14 +20,14 @@ public:
     Album(nlohmann::json albumJson);
     ~Album();
 
-    std::vector<std::shared_ptr<Copyright>> GetCopyrights();
-    std::map<std::string, std::string> GetExternalIds();
-    std::vector<std::string> GetGenres();
-    std::string GetLabel();
-    int GetPopularity();
-    std::string GetReleaseDate();
-    std::string GetReleaseDatePrecision();
-    Pager<TrackSimple> GetTracks();
+    std::vector<std::shared_ptr<Copyright>> GetCopyrights() const;
+    std::map<std::string, std::string> GetExternalIds() const;
+    std::vector<std::string> GetGenres() const;
+    std::string GetLabel() const;
+    int GetPopularity() const;
+    std::string GetReleaseDate() const;
+    std::string GetReleaseDatePrecision() const;
+    Pager<TrackSimple> GetTracks() const;
 
 private:
 

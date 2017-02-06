@@ -10,22 +10,22 @@ Artist::Artist(nlohmann::json artistJson) : ArtistSimple::ArtistSimple(artistJso
     popularity = artistJson["popularity"];
 }
 
-std::shared_ptr<Followers> Artist::GetFollowers()
+std::shared_ptr<Followers> Artist::GetFollowers() const
 {
     return followers;
 }
 
-std::vector<std::string> Artist::GetGenres()
+std::vector<std::string> Artist::GetGenres() const
 {
     return genres;
 }
 
-std::vector<std::shared_ptr<Image>> Artist::GetImages()
+std::vector<std::shared_ptr<Image>> Artist::GetImages() const
 {
     return images;
 }
 
-int Artist::GetPopularity()
+int Artist::GetPopularity() const
 {
     return popularity;
 }

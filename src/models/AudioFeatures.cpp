@@ -22,92 +22,92 @@ AudioFeatures::AudioFeatures(nlohmann::json audioFeaturesJson)
     valence = audioFeaturesJson["valence"];
 }
 
-float AudioFeatures::GetAcousticness()
+float AudioFeatures::GetAcousticness() const
 {
     return acousticness;
 }
 
-std::string AudioFeatures::GetAnalysisUrl()
+std::string AudioFeatures::GetAnalysisUrl() const
 {
     return analysisUrl;
 }
 
-float AudioFeatures::GetDanceability()
+float AudioFeatures::GetDanceability() const
 {
     return danceability;
 }
 
-int AudioFeatures::GetDurationMs()
+int AudioFeatures::GetDurationMs() const
 {
     return durationMs;
 }
 
-float AudioFeatures::GetEnergy()
+float AudioFeatures::GetEnergy() const
 {
     return energy;
 }
 
-std::string AudioFeatures::GetId()
+std::string AudioFeatures::GetId() const
 {
     return id;
 }
 
-float AudioFeatures::GetInstrumentalness()
+float AudioFeatures::GetInstrumentalness() const
 {
     return instrumentalness;
 }
 
-int AudioFeatures::GetKey()
+int AudioFeatures::GetKey() const
 {
     return key;
 }
 
-float AudioFeatures::GetLiveness()
+float AudioFeatures::GetLiveness() const
 {
     return liveness;
 }
 
-float AudioFeatures::GetLoudness()
+float AudioFeatures::GetLoudness() const
 {
     return loudness;
 }
 
-int AudioFeatures::GetMode()
+int AudioFeatures::GetMode() const
 {
     return mode;
 }
 
-float AudioFeatures::GetSpeechiness()
+float AudioFeatures::GetSpeechiness() const
 {
     return speechiness;
 }
 
-float AudioFeatures::GetTempo()
+float AudioFeatures::GetTempo() const
 {
     return tempo;
 }
 
-int AudioFeatures::GetTimeSignature()
+int AudioFeatures::GetTimeSignature() const
 {
     return timeSignature;
 }
 
-std::string AudioFeatures::GetTrackHref()
+std::string AudioFeatures::GetTrackHref() const
 {
     return trackHref;
 }
 
-std::string AudioFeatures::GetType()
+std::string AudioFeatures::GetType() const
 {
     return type;
 }
 
-std::string AudioFeatures::GetUri()
+std::string AudioFeatures::GetUri() const
 {
     return uri;
 }
 
-float AudioFeatures::GetValence()
+float AudioFeatures::GetValence() const
 {
     return valence;
 }
