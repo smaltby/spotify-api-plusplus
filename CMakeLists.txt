@@ -5,7 +5,6 @@ set (CMAKE_CXX_STANDARD 11)
 option(BUILD_TESTS "Build tests" OFF)
 
 set(SPOTIFY_PLUSPLUS_VERSION 1.0)
-set(LIBS)
 
 find_package(CURL)
 set(LIBS ${LIBS} ${CURL_LIBRARIES})
