@@ -43,7 +43,7 @@ CURL * SpotifyCurlInternal(std::string request, std::string endpoint, std::map<s
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     }
     if(!body.empty())
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
     return curl;
 }
 
