@@ -10,16 +10,15 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, std::map<std::string, std::string> options, std::string authToken)
+CURL * SpotifyCurlInternal(std::string request, std::string endpoint, std::map<std::string, std::string> options, std::string authToken, std::string body)
 {
     CURL * curl;
-    std::string readBuffer;
 
     curl = curl_easy_init ( ) ;
     if(!curl)
     {
         std::cerr << "Could not initiate cURL" << std::endl;
-        return nlohmann::json();
+        return curl;
     }
 
     std::string url = "https://api.spotify.com" + endpoint;
@@ -34,14 +33,7 @@ nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, st
 
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);  // Can't authenticate the certificate, so disable authentication.
-    if(request == "PUT" || request == "DELETE")
-    {
-        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, request.c_str());
-    } else if(request == "GET")
-    {
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-    }
+    curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, request.c_str());
 
     if(!authToken.empty())
     {
@@ -50,33 +42,67 @@ nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, st
         headers = curl_slist_append(headers, header.c_str());
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     }
+    if(!body.empty())
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body);
+    return curl;
+}
+
+nlohmann::json SpotifyGET(std::string endpoint, std::map<std::string, std::string> options, std::string authToken, std::string body = "")
+{
+    CURL * curl = SpotifyCurlInternal("GET", endpoint, options, authToken, body);
+
+    std::string readBuffer;
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 
     int rc = curl_easy_perform(curl);
     if (rc == CURLE_OK)
+        return nlohmann::json::parse(readBuffer);
+    else
+        std::cerr << "cURL error: " << rc << std::endl;
+    curl_easy_cleanup(curl);
+}
+
+void SpotifyPUT(std::string endpoint, std::map<std::string, std::string> options, std::string authToken, std::string body = "")
+{
+    CURL * curl = SpotifyCurlInternal("PUT", endpoint, options, authToken, body);
+
+    int rc = curl_easy_perform(curl);
+    if (rc != CURLE_OK)
+        std::cerr << "cURL error: " << rc << std::endl;
+    curl_easy_cleanup(curl);
+}
+
+void SpotifyDELETE(std::string endpoint, std::map<std::string, std::string> options, std::string authToken, std::string body = "")
+{
+    CURL * curl = SpotifyCurlInternal("DELETE", endpoint, options, authToken, body);
+
+    int rc = curl_easy_perform(curl);
+    if (rc != CURLE_OK)
+        std::cerr << "cURL error: " << rc << std::endl;
+    curl_easy_cleanup(curl);
+}
+
+void SpotifyPOST(std::string endpoint, std::map<std::string, std::string> options, std::string authToken, std::string body = "")
+{
+    CURL * curl = SpotifyCurlInternal("POST", endpoint, options, authToken, body);
+
+    int rc = curl_easy_perform(curl);
+    if (rc != CURLE_OK)
+        std::cerr << "cURL error: " << rc << std::endl;
+    curl_easy_cleanup(curl);
+}
+
+std::string VectorJoin(std::vector<std::string> vector)
+{
+    std::stringstream ss;
+    for(size_t i = 0; i < vector.size(); ++i)
     {
-        curl_easy_cleanup(curl);
-        if(request == "GET")
-            return nlohmann::json::parse(readBuffer);
-        else
-            return nlohmann::json();
+        if(i != 0)
+            ss << ",";
+        ss << vector[i];
     }
-    std::cerr << "cURL error: " << rc << std::endl;
-    return nlohmann::json();
-}
-
-nlohmann::json SpotifyGET(std::string endpoint, std::map<std::string, std::string> options, std::string authToken)
-{
-    return SpotifyCurlInternal("GET", endpoint, options, authToken);
-}
-
-void SpotifyPUT(std::string endpoint, std::map<std::string, std::string> options, std::string authToken)
-{
-    SpotifyCurlInternal("PUT", endpoint, options, authToken);
-}
-
-void SpotifyDELETE(std::string endpoint, std::map<std::string, std::string> options, std::string authToken)
-{
-    SpotifyCurlInternal("DELETE", endpoint, options, authToken);
+    return ss.str();
 }
 
 #endif

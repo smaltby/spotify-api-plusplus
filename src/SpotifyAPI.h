@@ -118,13 +118,17 @@ public:
 
     void EditPlaylist(std::string userId, std::string playlistId, options_t options = options_t());
 
-    void AddTracksToPlaylist(std::string userId, std::string playlistId, std::vector<std::string> trackIds, options_t options = options_t());
+    void AddTracksToPlaylist(std::string userId, std::string playlistId, std::vector<std::string> trackUris, options_t options = options_t());
 
-    void RemoveTracksFromPlaylist(std::string userId, std::string playlistId, std::vector<std::string> trackIds, options_t options = options_t());
+    void RemoveTracksFromPlaylist(std::string userId, std::string playlistId, std::vector<std::string> trackUris, std::string snapshotId = "");
+
+    void RemoveTracksFromPlaylist(std::string userId, std::string playlistId, std::map<std::string, std::vector<int>> trackUrisToPositions, std::string snapshotId = "");
+
+    void RemoveTracksFromPlaylist(std::string userId, std::string playlistId, std::vector<int> positions, std::string snapshotId);
 
     void ReorderPlaylistTracks(std::string userId, std::string playlistId, int rangeStart, int insertBefore, options_t options = options_t());
 
-    void ReplacePlaylistTracks(std::string userId, std::string playlistId, std::vector<std::string> trackIds, options_t options = options_t());
+    void ReplacePlaylistTracks(std::string userId, std::string playlistId, std::vector<std::string> trackUris, options_t options = options_t());
 
     bool CheckUserFollowingPlaylist(std::string userId, std::string playlistId, std::vector<std::string> userIds, options_t options = options_t());
 
