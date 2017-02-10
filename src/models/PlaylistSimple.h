@@ -23,7 +23,7 @@ public:
     std::string GetId() const;
     std::vector<std::shared_ptr<Image>> GetImages() const;
     std::string GetName() const;
-    std::shared_ptr<User> GetOwner() const;
+    std::shared_ptr<UserPublic> GetOwner() const;
     bool IsPublic() const;
     std::string GetSnapshotId() const;
     Pager<PlaylistTrack> GetTracks() const;
@@ -37,7 +37,7 @@ private:
     std::string id;
     std::vector<std::shared_ptr<Image>> images;
     std::string name;
-    std::shared_ptr<User> owner;
+    std::shared_ptr<UserPublic> owner;
     bool isPublic;
     std::string snapshotId;
     Pager<PlaylistTrack> tracks;

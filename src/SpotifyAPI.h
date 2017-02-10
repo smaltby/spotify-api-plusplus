@@ -40,7 +40,7 @@ public:
 
     std::vector<std::shared_ptr<AudioFeatures>> GetAudioFeatures(std::vector<std::string> trackIds, options_t options = options_t());
 
-    Pager<Playlist> GetFeaturedPlaylists(options_t options = options_t());
+    Pager<PlaylistSimple> GetFeaturedPlaylists(options_t options = options_t());
 
     Pager<AlbumSimple> GetNewReleases(options_t options = options_t());
 

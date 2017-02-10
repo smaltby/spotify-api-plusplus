@@ -33,13 +33,16 @@ template <typename T> Pager<T>::Pager() = default;
 
 template <typename T> Pager<T>::Pager(nlohmann::json pagerJson)
 {
-    href = pagerJson["href"];
+    if (!pagerJson["href"].is_null())
+        href = pagerJson["href"];
     for(nlohmann::json json : pagerJson["items"])
         items.push_back(T(json));
-    limit = pagerJson["limit"];
+    if(!pagerJson["limit"].is_null())
+        limit = pagerJson["limit"];
     if (!pagerJson["next"].is_null())
         next = pagerJson["next"];
-    offset = pagerJson["offset"];
+    if (!pagerJson["offset"].is_null())
+        offset = pagerJson["offset"];
     if (!pagerJson["previous"].is_null())
         previous = pagerJson["previous"];
     total = pagerJson["total"];

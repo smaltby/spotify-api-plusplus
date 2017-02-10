@@ -70,7 +70,72 @@ TEST_F(TestEndpoints, GetArtistsTest)
     ));
 }
 
-TEST_F(TestEndpoints, MyFollowedTest)
+TEST_F(TestEndpoints, GetArtistTopTracksTest)
+{
+    std::vector<std::shared_ptr<Track>> tracks = api.GetArtistTopTracks("43ZHCT0cAZBISjO8DG9PnE", "US");
+    //An artist's top tracks change over time, so we can't test specific tracks.
+    //If the function doesn't return an error, and 10 tracks are returned, the function is probably working as intended
+    ASSERT_EQ(tracks.size(), 10);
+}
+
+TEST_F(TestEndpoints, GetArtistRelatedArtistsTest)
+{
+    std::vector<std::shared_ptr<Artist>> artists = api.GetArtistRelatedArtists("43ZHCT0cAZBISjO8DG9PnE");
+    //Similar to the above test, related artists change, so just test the number of artists returned
+    ASSERT_EQ(artists.size(), 20);
+}
+
+TEST_F(TestEndpoints, GetAudioFeaturesTest)
+{
+    std::shared_ptr<AudioFeatures> features = api.GetAudioFeatures("06AKEBrKUckW0KREUWRnvT");
+    ASSERT_FLOAT_EQ(features->GetDanceability(), 0.735);
+    ASSERT_EQ(features->GetDurationMs(), 255349);
+}
+
+TEST_F(TestEndpoints, GetAudioFeaturesTest2)
+{
+    std::vector<std::shared_ptr<AudioFeatures>> features = api.GetAudioFeatures((std::vector<std::string>) {"06AKEBrKUckW0KREUWRnvT", "2NRANZE9UCmPAS5XVbXL40"});
+    ASSERT_EQ(features[0]->GetDurationMs(), 255349);
+    ASSERT_EQ(features[1]->GetDurationMs(), 187800);
+}
+
+TEST_F(TestEndpoints, GetFeaturedPlaylistsTest)
+{
+    Pager<PlaylistSimple> playlists = api.GetFeaturedPlaylists();
+    //ASSERT_EQ(playlists.GetTotal(), 20);
+}
+
+TEST_F(TestEndpoints, GetNewReleasesTest)
+{
+    Pager<AlbumSimple> albums = api.GetNewReleases();
+    //ASSERT_EQ(albums.GetTotal(), 20);
+}
+
+TEST_F(TestEndpoints, GetCategoriesTest)
+{
+    Pager<Category> categories = api.GetCategories();
+    //ASSERT_EQ(categories.GetTotal(), 20);
+}
+
+TEST_F(TestEndpoints, GetCategoryTest)
+{
+    std::shared_ptr<Category> category = api.GetCategory("party");
+    ASSERT_STREQ(category->GetName().c_str(), "Party");
+}
+
+TEST_F(TestEndpoints, GetCategoryPlaylistsTest)
+{
+    Pager<PlaylistSimple> playlists = api.GetCategoryPlaylists("party");
+    //ASSERT_EQ(playlists.GetTotal(), 20);
+}
+
+TEST_F(TestEndpoints, GetMeTest)
+{
+    std::shared_ptr<User> me = api.GetMe();
+    ASSERT_STREQ(me->GetType().c_str(), "user");
+}
+
+TEST_F(TestEndpoints, MyFollowedArtistsTest)
 {
     // Follow Band of Horses and check to make sure that MyFollowedArtists contains it
     api.FollowArtist("0OdUWJ0sBjDrqHygGUXeCF");
@@ -81,4 +146,13 @@ TEST_F(TestEndpoints, MyFollowedTest)
     api.UnfollowArtist("0OdUWJ0sBjDrqHygGUXeCF");
     followed = api.GetMyFollowedArtists().GetItems();
     ASSERT_THAT(followed, testing::Not(testing::Contains(testing::Property(&Artist::GetName, testing::StrEq("Band of Horses")))));
+}
+
+TEST_F(TestEndpoints, MyFollowedUsersTest)
+{
+    api.FollowUser("exampleuser01");
+    ASSERT_TRUE(api.CheckFollowingUser("exampleuser01"));
+
+    api.UnfollowUser("exampleuser01");
+    ASSERT_FALSE(api.CheckFollowingUser("exampleuser01"));
 }

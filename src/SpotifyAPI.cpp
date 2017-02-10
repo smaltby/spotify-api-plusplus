@@ -83,19 +83,20 @@ std::vector<std::shared_ptr<AudioFeatures>> SpotifyAPI::GetAudioFeatures(std::ve
     return audioFeatures;
 }
 
-Pager<Playlist> SpotifyAPI::GetFeaturedPlaylists(options_t options)
+Pager<PlaylistSimple> SpotifyAPI::GetFeaturedPlaylists(options_t options)
 {
-    return Pager<Playlist>(SpotifyGET("/v1/browse/featured-playlists", options, authToken));
+    // TODO Add access to message variable
+    return Pager<PlaylistSimple>(SpotifyGET("/v1/browse/featured-playlists", options, authToken)["playlists"]);
 }
 
 Pager<AlbumSimple> SpotifyAPI::GetNewReleases(options_t options)
 {
-    return Pager<AlbumSimple>(SpotifyGET("/v1/browse/new-releases", options, authToken));
+    return Pager<AlbumSimple>(SpotifyGET("/v1/browse/new-releases", options, authToken)["albums"]);
 }
 
 Pager<Category> SpotifyAPI::GetCategories(options_t options)
 {
-    return Pager<Category>(SpotifyGET("/v1/browse/categories", options, authToken));
+    return Pager<Category>(SpotifyGET("/v1/browse/categories", options, authToken)["categories"]);
 }
 
 std::shared_ptr<Category> SpotifyAPI::GetCategory(std::string categoryId, options_t options)
@@ -105,7 +106,7 @@ std::shared_ptr<Category> SpotifyAPI::GetCategory(std::string categoryId, option
 
 Pager<PlaylistSimple> SpotifyAPI::GetCategoryPlaylists(std::string categoryId, options_t options)
 {
-    return Pager<PlaylistSimple>(SpotifyGET("/v1/browse/categories/" + categoryId + "/playlists", options, authToken));
+    return Pager<PlaylistSimple>(SpotifyGET("/v1/browse/categories/" + categoryId + "/playlists", options, authToken)["playlists"]);
 }
 
 std::shared_ptr<User> SpotifyAPI::GetMe(options_t options)
@@ -158,7 +159,7 @@ bool SpotifyAPI::CheckFollowingUser(std::string userId, options_t options)
 {
     options["type"] = "user";
     options["ids"] = userId;
-    return SpotifyGET("/v1/me/following/contains", options, authToken);
+    return SpotifyGET("/v1/me/following/contains", options, authToken)[0];
 }
 
 void SpotifyAPI::FollowPlaylist(std::string ownerId, std::string playlistId, options_t options)
@@ -191,7 +192,7 @@ void SpotifyAPI::RemoveSavedTracks(std::vector<std::string> trackIds, options_t 
 bool SpotifyAPI::CheckSavedTracks(std::vector<std::string> trackIds, options_t options)
 {
     options["ids"] = VectorJoin(trackIds);
-    return SpotifyGET("/v1/me/tracks/contains", options, authToken);
+    return SpotifyGET("/v1/me/tracks/contains", options, authToken)[0];
 }
 
 void SpotifyAPI::SaveAlbums(std::vector<std::string> albumIds, options_t options)
@@ -214,7 +215,7 @@ void SpotifyAPI::RemoveSavedAlbums(std::vector<std::string> albumIds, options_t 
 bool SpotifyAPI::CheckSavedAlbums(std::vector<std::string> albumIds, options_t options)
 {
     options["ids"] = VectorJoin(albumIds);
-    return SpotifyGET("/v1/me/albums/contains", options, authToken);
+    return SpotifyGET("/v1/me/albums/contains", options, authToken)[0];
 }
 
 Pager<Artist> SpotifyAPI::GetMyTopArtists(options_t options)
@@ -392,6 +393,6 @@ bool SpotifyAPI::CheckUserFollowingPlaylist(std::string userId, std::string play
                                        options_t options)
 {
     options["ids"] = VectorJoin(userIds);
-    return SpotifyGET("/v1/users/" + userId + "/playlists/" + playlistId + "/followers/contains", options, authToken);
+    return SpotifyGET("/v1/users/" + userId + "/playlists/" + playlistId + "/followers/contains", options, authToken)[0];
 }
 

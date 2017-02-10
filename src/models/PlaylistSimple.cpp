@@ -2,7 +2,7 @@
 
 PlaylistSimple::PlaylistSimple(nlohmann::json playlistJson)
 {
-    isCollaborative = playlistJson["collaborative "];
+    isCollaborative = playlistJson["collaborative"];
     for (auto it = playlistJson["external_urls"].begin(); it != playlistJson["external_urls"].end(); ++it)
         externalUrls[it.key()] = it.value();
     href = playlistJson["href"];
@@ -10,8 +10,11 @@ PlaylistSimple::PlaylistSimple(nlohmann::json playlistJson)
     for(nlohmann::json json : playlistJson["images"])
         images.push_back(std::shared_ptr<Image>(new Image(json)));
     name = playlistJson["name"];
-    owner = std::shared_ptr<User>(new User(playlistJson["owner"]));
-    isPublic = playlistJson["public"];
+    owner = std::shared_ptr<UserPublic>(new UserPublic(playlistJson["owner"]));
+    if(playlistJson["public"].is_null())
+        isPublic = false;
+    else
+        isPublic = playlistJson["public"];
     snapshotId = playlistJson["snapshot_id"];
     tracks = Pager<PlaylistTrack>(playlistJson["tracks"]);
     type = playlistJson["type"];
@@ -48,7 +51,7 @@ std::string PlaylistSimple::GetName() const
     return name;
 }
 
-std::shared_ptr<User> PlaylistSimple::GetOwner() const
+std::shared_ptr<UserPublic> PlaylistSimple::GetOwner() const
 {
     return owner;
 }

@@ -2,9 +2,11 @@
 
 Image::Image(nlohmann::json imageJson)
 {
-    height = imageJson["height"];
+    if(!imageJson["height"].is_null())
+        height = imageJson["height"];
     url = imageJson["url"];
-    width = imageJson["width"];
+    if(!imageJson["width"].is_null())
+        width = imageJson["width"];
 }
 
 int Image::GetHeight() const
