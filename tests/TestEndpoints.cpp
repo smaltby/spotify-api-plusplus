@@ -70,6 +70,12 @@ TEST_F(TestEndpoints, GetArtistsTest)
     ));
 }
 
+TEST_F(TestEndpoints, GetArtistAlbumsTest)
+{
+    Pager<AlbumSimple> albums = api.GetArtistAlbums("1vCWHaC5f2uS3yhpwWbIA6");
+    ASSERT_THAT(albums.GetItems(), testing::Contains(testing::Property(&AlbumSimple::GetName, testing::StrEq("Taste The Feeling (Avicii Vs. Conrad Sewell)"))));
+}
+
 TEST_F(TestEndpoints, GetArtistTopTracksTest)
 {
     std::vector<std::shared_ptr<Track>> tracks = api.GetArtistTopTracks("43ZHCT0cAZBISjO8DG9PnE", "US");
@@ -141,11 +147,13 @@ TEST_F(TestEndpoints, MyFollowedArtistsTest)
     api.FollowArtist("0OdUWJ0sBjDrqHygGUXeCF");
     std::vector<Artist> followed = api.GetMyFollowedArtists().GetItems();
     ASSERT_THAT(followed, testing::Contains(testing::Property(&Artist::GetName, testing::StrEq("Band of Horses"))));
+    ASSERT_TRUE(api.CheckFollowingArtist("0OdUWJ0sBjDrqHygGUXeCF"));
 
     // Unfollow Band of Horses and check to make sure that MyFollowedArtists no longer contains it
     api.UnfollowArtist("0OdUWJ0sBjDrqHygGUXeCF");
     followed = api.GetMyFollowedArtists().GetItems();
     ASSERT_THAT(followed, testing::Not(testing::Contains(testing::Property(&Artist::GetName, testing::StrEq("Band of Horses")))));
+    ASSERT_FALSE(api.CheckFollowingArtist("0OdUWJ0sBjDrqHygGUXeCF"));
 }
 
 TEST_F(TestEndpoints, MyFollowedUsersTest)
@@ -155,4 +163,13 @@ TEST_F(TestEndpoints, MyFollowedUsersTest)
 
     api.UnfollowUser("exampleuser01");
     ASSERT_FALSE(api.CheckFollowingUser("exampleuser01"));
+}
+
+TEST_F(TestEndpoints, MyFollowedPlaylistsTest)
+{
+    api.FollowPlaylist("jmperezperez", "2v3iNvBX8Ay1Gt2uXtUKUT");
+    ASSERT_TRUE(api.CheckUserFollowingPlaylist("jmperezperez", "2v3iNvBX8Ay1Gt2uXtUKUT", {api.GetMe()->GetId()}));
+
+    api.UnfollowPlaylist("jmperezperez", "2v3iNvBX8Ay1Gt2uXtUKUT");
+    ASSERT_FALSE(api.CheckUserFollowingPlaylist("jmperezperez", "2v3iNvBX8Ay1Gt2uXtUKUT", {api.GetMe()->GetId()}));
 }

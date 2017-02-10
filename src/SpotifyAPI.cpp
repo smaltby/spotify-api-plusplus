@@ -152,7 +152,7 @@ bool SpotifyAPI::CheckFollowingArtist(std::string artistId, options_t options)
 {
     options["type"] = "artist";
     options["ids"] = artistId;
-    return SpotifyGET("/v1/me/following/contains", options, authToken);
+    return SpotifyGET("/v1/me/following/contains", options, authToken)[0];
 }
 
 bool SpotifyAPI::CheckFollowingUser(std::string userId, options_t options)
@@ -392,6 +392,7 @@ void SpotifyAPI::ReplacePlaylistTracks(std::string userId, std::string playlistI
 bool SpotifyAPI::CheckUserFollowingPlaylist(std::string userId, std::string playlistId, std::vector<std::string> userIds,
                                        options_t options)
 {
+    //TODO Support multiple users
     options["ids"] = VectorJoin(userIds);
     return SpotifyGET("/v1/users/" + userId + "/playlists/" + playlistId + "/followers/contains", options, authToken)[0];
 }
