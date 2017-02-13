@@ -237,28 +237,28 @@ Pager<AlbumSimple> SpotifyAPI::SearchAlbums(std::string query, options_t options
 {
     options["type"] = "album";
     options["q"] = query;
-    return Pager<AlbumSimple>(SpotifyGET("/v1/search", options, authToken));
+    return Pager<AlbumSimple>(SpotifyGET("/v1/search", options, authToken)["albums"]);
 }
 
 Pager<Artist> SpotifyAPI::SearchArtists(std::string query, options_t options)
 {
     options["type"] = "artist";
     options["q"] = query;
-    return Pager<Artist>(SpotifyGET("/v1/search", options, authToken));
+    return Pager<Artist>(SpotifyGET("/v1/search", options, authToken)["artists"]);
 }
 
 Pager<PlaylistSimple> SpotifyAPI::SearchPlaylists(std::string query, options_t options)
 {
     options["type"] = "playlist";
     options["q"] = query;
-    return Pager<PlaylistSimple>(SpotifyGET("/v1/search", options, authToken));
+    return Pager<PlaylistSimple>(SpotifyGET("/v1/search", options, authToken)["playlists"]);
 }
 
 Pager<Track> SpotifyAPI::SearchTracks(std::string query, options_t options)
 {
     options["type"] = "track";
     options["q"] = query;
-    return Pager<Track>(SpotifyGET("/v1/search", options, authToken));
+    return Pager<Track>(SpotifyGET("/v1/search", options, authToken)["tracks"]);
 }
 
 std::shared_ptr<Track> SpotifyAPI::GetTrack(std::string trackId, options_t options)

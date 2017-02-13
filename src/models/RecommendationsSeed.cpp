@@ -2,8 +2,8 @@
 
 RecommendationsSeed::RecommendationsSeed(nlohmann::json reccomendationsJson)
 {
-    afterFilteringSize = reccomendationsJson["after_filtering_size"];
-    afterRelinkingSize = reccomendationsJson["after_relinking_size"];
+    afterFilteringSize = reccomendationsJson["afterFilteringSize"];
+    afterRelinkingSize = reccomendationsJson["afterRelinkingSize"];
     href = reccomendationsJson["href"];
     id = reccomendationsJson["id"];
     initialPoolSize = reccomendationsJson["initialPoolSize"];

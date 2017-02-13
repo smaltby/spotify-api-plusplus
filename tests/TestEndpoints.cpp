@@ -173,3 +173,104 @@ TEST_F(TestEndpoints, MyFollowedPlaylistsTest)
     api.UnfollowPlaylist("jmperezperez", "2v3iNvBX8Ay1Gt2uXtUKUT");
     ASSERT_FALSE(api.CheckUserFollowingPlaylist("jmperezperez", "2v3iNvBX8Ay1Gt2uXtUKUT", {api.GetMe()->GetId()}));
 }
+
+TEST_F(TestEndpoints, MySavedTracksTest)
+{
+    api.SaveTracks({"3n3Ppam7vgaVa1iaRUc9Lp"});
+    Pager<SavedTrack> tracks = api.GetMySavedTracks();
+    ASSERT_THAT(tracks.GetItems(), testing::Contains(testing::Property(&SavedTrack::GetTrack,
+                                                     testing::Property(&std::shared_ptr<Track>::operator*,
+                                                     testing::Property(&Track::GetName, testing::StrEq("Mr. Brightside"))))));
+    ASSERT_TRUE(api.CheckSavedTracks({"3n3Ppam7vgaVa1iaRUc9Lp"}));
+
+    api.RemoveSavedTracks({"3n3Ppam7vgaVa1iaRUc9Lp"});
+    tracks = api.GetMySavedTracks();
+    ASSERT_THAT(tracks.GetItems(), testing::Not(testing::Contains(testing::Property(&SavedTrack::GetTrack,
+                                                     testing::Property(&std::shared_ptr<Track>::operator*,
+                                                     testing::Property(&Track::GetName, testing::StrEq("Mr. Brightside")))))));
+    ASSERT_FALSE(api.CheckSavedTracks({"3n3Ppam7vgaVa1iaRUc9Lp"}));
+}
+
+TEST_F(TestEndpoints, MySavedAlbumsTest)
+{
+    api.SaveAlbums({"0sNOF9WDwhWunNAHPD3Baj"});
+    Pager<SavedAlbum> albums = api.GetMySavedAlbums();
+    ASSERT_THAT(albums.GetItems(), testing::Contains(testing::Property(&SavedAlbum::GetAlbum,
+                                                     testing::Property(&std::shared_ptr<Album>::operator*,
+                                                     testing::Property(&Album::GetName, testing::StrEq("She's So Unusual"))))));
+    ASSERT_TRUE(api.CheckSavedAlbums({"0sNOF9WDwhWunNAHPD3Baj"}));
+
+    api.RemoveSavedAlbums({"0sNOF9WDwhWunNAHPD3Baj"});
+    albums = api.GetMySavedAlbums();
+    ASSERT_THAT(albums.GetItems(), testing::Not(testing::Contains(testing::Property(&SavedAlbum::GetAlbum,
+                                                                  testing::Property(&std::shared_ptr<Album>::operator*,
+                                                                  testing::Property(&Album::GetName, testing::StrEq("She's So Unusual")))))));
+    ASSERT_FALSE(api.CheckSavedAlbums({"0sNOF9WDwhWunNAHPD3Baj"}));
+}
+
+TEST_F(TestEndpoints, MyTopArtistsTest)
+{
+    Pager<Artist> artists = api.GetMyTopArtists();
+    //ASSERT_EQ(artists.GetTotal(), 20);
+}
+
+TEST_F(TestEndpoints, MyTopTracksTest)
+{
+    Pager<Track> tracks = api.GetMyTopTracks();
+    //ASSERT_EQ(artists.GetTotal(), 20);
+}
+
+TEST_F(TestEndpoints, RecommendationsTest)
+{
+    std::map<std::string, std::string> options;
+    options["seed_artists"] = "4NHQUGzhtTLFvgF5SZesLK";
+    options["seed_tracks"] = "0c6xIDDpzE81m2q797ordA";
+    options["min_energy"] = "0.4";
+    options["min_popularity"] = "50";
+    options["market"] = "US";
+
+    Recommendations recommendations = api.GetRecommendations(options);
+    ASSERT_EQ(recommendations.GetTracks().size(), 20);
+}
+
+TEST_F(TestEndpoints, SearchAlbumsTest)
+{
+    Pager<AlbumSimple> albums = api.SearchAlbums("Adventure");
+
+    ASSERT_THAT(albums.GetItems(), testing::Contains(testing::Property(&AlbumSimple::GetName, testing::StrEq("Adventure (Deluxe)"))));
+}
+
+TEST_F(TestEndpoints, SearchArtistsTest)
+{
+    Pager<Artist> artists = api.SearchArtists("Killers");
+
+    ASSERT_THAT(artists.GetItems(), testing::Contains(testing::Property(&ArtistSimple::GetName, testing::StrEq("The Killers"))));
+}
+
+TEST_F(TestEndpoints, SearchPlaylistsTest)
+{
+    Pager<PlaylistSimple> playlists = api.SearchPlaylists("Today's");
+
+    ASSERT_THAT(playlists.GetItems(), testing::Contains(testing::Property(&PlaylistSimple::GetName, testing::StrEq("Today's Top Hits"))));
+}
+
+TEST_F(TestEndpoints, SearchTracksTest)
+{
+    Pager<Track> tracks = api.SearchTracks("Brightside");
+
+    ASSERT_THAT(tracks.GetItems(), testing::Contains(testing::Property(&TrackSimple::GetName, testing::StrEq("Mr. Brightside"))));
+}
+
+TEST_F(TestEndpoints, GetTrackTest)
+{
+    std::shared_ptr<Track> track = api.GetTrack("3n3Ppam7vgaVa1iaRUc9Lp");
+    ASSERT_STREQ(track->GetName().c_str(), "Mr. Brightside");
+}
+
+TEST_F(TestEndpoints, GetTracksTest)
+{
+    std::vector<std::shared_ptr<Track>> tracks = api.GetTracks({"3n3Ppam7vgaVa1iaRUc9Lp", "3twNvmDtFQtAd5gMKedhLD"});
+    ASSERT_THAT(tracks, testing::ElementsAre(testing::Property(&std::shared_ptr<Track>::operator*, testing::Property(&Track::GetName, testing::StrEq("Mr. Brightside"))),
+                                             testing::Property(&std::shared_ptr<Track>::operator*, testing::Property(&Track::GetName, testing::StrEq("Somebody Told Me")))
+    ));
+}
