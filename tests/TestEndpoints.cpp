@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <gmock/gmock.h>
+#include <curl/curl.h>
+#include <utils/CurlUtils.h>
 
 SpotifyAPI GetAPI()
 {
@@ -19,20 +21,64 @@ SpotifyAPI GetAPI()
 class TestEndpoints : public ::testing::Test
 {
 protected:
+    static SpotifyAPI sharedApi;
     SpotifyAPI api;
     virtual void SetUp()
     {
-        api = SpotifyAPI();
+        api = TestEndpoints::sharedApi;
+    }
 
-        std::ifstream t("../auth_token.txt");
+    static void SetUpTestCase()
+    {
+        sharedApi = SpotifyAPI();
+
+        std::string refreshToken = GetStringFromFile("../refresh_token.txt");
+        std::string clientId = GetStringFromFile("../client_id.txt");
+        std::string clientSecret = GetStringFromFile("../client_secret.txt");
+
+        CURL * curl;
+        curl = curl_easy_init ( ) ;
+        if(!curl)
+        {
+            std::cerr << "Could not initiate cURL" << std::endl;
+            return;
+        }
+
+        std::string readBuffer;
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+
+        curl_easy_setopt(curl, CURLOPT_URL, "https://accounts.spotify.com/api/token");
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);  // Can't authenticate the certificate, so disable authentication.
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
+        std::string postData = "grant_type=refresh_token&refresh_token="+refreshToken+"&client_id=" + clientId + "&client_secret="+clientSecret;
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postData.c_str());
+
+        int rc = curl_easy_perform(curl);
+        if (rc != CURLE_OK)
+        {
+            std::cerr << "cURL error: " << rc << std::endl;
+            return;
+        }
+        curl_easy_cleanup(curl);
+
+        nlohmann::json json = nlohmann::json::parse(readBuffer);
+        std::string accessToken = json["access_token"];
+
+        sharedApi.setAuthToken(accessToken);
+    }
+
+private:
+    static std::string GetStringFromFile(std::string fileName)
+    {
         std::stringstream buffer;
-        buffer << t.rdbuf();
-
-        api.setAuthToken(buffer.str());
-
-        t.close();
+        std::ifstream file(fileName);
+        buffer << file.rdbuf();
+        file.close();
+        return buffer.str();
     }
 };
+SpotifyAPI TestEndpoints::sharedApi;
 
 TEST_F(TestEndpoints, GetAlbumTest)
 {
@@ -273,4 +319,10 @@ TEST_F(TestEndpoints, GetTracksTest)
     ASSERT_THAT(tracks, testing::ElementsAre(testing::Property(&std::shared_ptr<Track>::operator*, testing::Property(&Track::GetName, testing::StrEq("Mr. Brightside"))),
                                              testing::Property(&std::shared_ptr<Track>::operator*, testing::Property(&Track::GetName, testing::StrEq("Somebody Told Me")))
     ));
+}
+
+TEST_F(TestEndpoints, GetUserTest)
+{
+    std::shared_ptr<UserPublic> user = api.GetUser("tuggareutangranser");
+    ASSERT_STREQ(user->GetDisplayName().c_str(), "Lilla Namo");
 }
