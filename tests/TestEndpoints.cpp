@@ -5,19 +5,6 @@
 #include <curl/curl.h>
 #include <utils/CurlUtils.h>
 
-SpotifyAPI GetAPI()
-{
-    SpotifyAPI api = SpotifyAPI();
-
-    std::ifstream t("../auth_token.txt");
-    std::stringstream buffer;
-    buffer << t.rdbuf();
-
-    api.setAuthToken(buffer.str());
-
-    return api;
-}
-
 class TestEndpoints : public ::testing::Test
 {
 protected:
