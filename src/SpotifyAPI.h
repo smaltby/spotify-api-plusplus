@@ -114,7 +114,7 @@ public:
 
     Pager<PlaylistTrack> GetPlaylistTracks(std::string userId, std::string playlistId, options_t options = options_t());
 
-    void CreatePlaylist(std::string userId, std::string name, options_t options = options_t());
+    std::shared_ptr<Playlist> CreatePlaylist(std::string userId, std::string name, options_t options = options_t());
 
     void EditPlaylist(std::string userId, std::string playlistId, options_t options = options_t());
 

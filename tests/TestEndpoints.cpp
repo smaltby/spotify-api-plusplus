@@ -154,19 +154,19 @@ TEST_F(TestEndpoints, GetAudioFeaturesTest2)
 TEST_F(TestEndpoints, GetFeaturedPlaylistsTest)
 {
     Pager<PlaylistSimple> playlists = api.GetFeaturedPlaylists();
-    //ASSERT_EQ(playlists.GetTotal(), 20);
+    ASSERT_EQ(playlists.GetLimit(), 20);
 }
 
 TEST_F(TestEndpoints, GetNewReleasesTest)
 {
     Pager<AlbumSimple> albums = api.GetNewReleases();
-    //ASSERT_EQ(albums.GetTotal(), 20);
+    ASSERT_EQ(albums.GetLimit(), 20);
 }
 
 TEST_F(TestEndpoints, GetCategoriesTest)
 {
     Pager<Category> categories = api.GetCategories();
-    //ASSERT_EQ(categories.GetTotal(), 20);
+    ASSERT_EQ(categories.GetLimit(), 20);
 }
 
 TEST_F(TestEndpoints, GetCategoryTest)
@@ -178,7 +178,7 @@ TEST_F(TestEndpoints, GetCategoryTest)
 TEST_F(TestEndpoints, GetCategoryPlaylistsTest)
 {
     Pager<PlaylistSimple> playlists = api.GetCategoryPlaylists("party");
-    //ASSERT_EQ(playlists.GetTotal(), 20);
+    ASSERT_EQ(playlists.GetLimit(), 20);
 }
 
 TEST_F(TestEndpoints, GetMeTest)
@@ -257,13 +257,13 @@ TEST_F(TestEndpoints, MySavedAlbumsTest)
 TEST_F(TestEndpoints, MyTopArtistsTest)
 {
     Pager<Artist> artists = api.GetMyTopArtists();
-    //ASSERT_EQ(artists.GetTotal(), 20);
+    ASSERT_EQ(artists.GetLimit(), 20);
 }
 
 TEST_F(TestEndpoints, MyTopTracksTest)
 {
     Pager<Track> tracks = api.GetMyTopTracks();
-    //ASSERT_EQ(artists.GetTotal(), 20);
+    ASSERT_EQ(tracks.GetLimit(), 20);
 }
 
 TEST_F(TestEndpoints, RecommendationsTest)
@@ -325,4 +325,34 @@ TEST_F(TestEndpoints, GetUserTest)
 {
     std::shared_ptr<UserPublic> user = api.GetUser("tuggareutangranser");
     ASSERT_STREQ(user->GetDisplayName().c_str(), "Lilla Namo");
+}
+
+TEST_F(TestEndpoints, EditPlaylistsTest)
+{
+    std::shared_ptr<User> me = api.GetMe();
+
+    // Create a playlist and make sure the playlist is properly returned with the correct attributes
+    std::shared_ptr<Playlist> playlist = api.CreatePlaylist(me->GetId(), "Test Playlist");
+    ASSERT_STREQ(playlist->GetName().c_str(), "Test Playlist");
+
+    // Make sure the playlist is followed on being created
+    Pager<PlaylistSimple> myPlaylists = api.GetMyPlaylists();
+    ASSERT_THAT(myPlaylists.GetItems(), testing::Contains(testing::Property(&PlaylistSimple::GetName, testing::StrEq("Test Playlist"))));
+
+    // Add tracks and make sure they are in the list of playlist tracks
+    api.AddTracksToPlaylist(me->GetId(), playlist->GetId(), {"spotify:track:3n3Ppam7vgaVa1iaRUc9Lp", "spotify:track:3twNvmDtFQtAd5gMKedhLD"});
+    Pager<PlaylistTrack> tracks = api.GetPlaylistTracks(me->GetId(), playlist->GetId());
+    ASSERT_THAT(tracks.GetItems(), testing::ElementsAre(testing::Property(&PlaylistTrack::GetTrack, testing::Property(&std::shared_ptr<Track>::operator*, testing::Property(&Track::GetName, testing::StrEq("Mr. Brightside")))),
+                                                        testing::Property(&PlaylistTrack::GetTrack, testing::Property(&std::shared_ptr<Track>::operator*, testing::Property(&Track::GetName, testing::StrEq("Somebody Told Me"))))
+    ));
+
+    // Remove one of the tracks and make sure it is no longer in the playlist
+    api.RemoveTracksFromPlaylist(me->GetId(), playlist->GetId(), {"spotify:track:3n3Ppam7vgaVa1iaRUc9Lp"});
+    tracks = api.GetPlaylistTracks(me->GetId(), playlist->GetId());
+    ASSERT_THAT(tracks.GetItems(), testing::ElementsAre(testing::Property(&PlaylistTrack::GetTrack, testing::Property(&std::shared_ptr<Track>::operator*, testing::Property(&Track::GetName, testing::StrEq("Somebody Told Me"))))));
+
+    // Unfollow the playlist
+    api.UnfollowPlaylist(me->GetId(), playlist->GetId());
+    myPlaylists = api.GetMyPlaylists();
+    ASSERT_THAT(myPlaylists.GetItems(), testing::Not(testing::Contains(testing::Property(&PlaylistSimple::GetName, testing::StrEq("Test Playlist")))));
 }

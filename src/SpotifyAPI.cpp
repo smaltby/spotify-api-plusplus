@@ -299,14 +299,14 @@ Pager<PlaylistTrack> SpotifyAPI::GetPlaylistTracks(std::string userId, std::stri
     return Pager<PlaylistTrack>(SpotifyGET("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options, authToken));
 }
 
-void SpotifyAPI::CreatePlaylist(std::string userId, std::string name, options_t options)
+std::shared_ptr<Playlist> SpotifyAPI::CreatePlaylist(std::string userId, std::string name, options_t options)
 {
     nlohmann::json bodyJson;
     bodyJson["name"] = name;
     for(auto option : options)
         bodyJson[option.first] = option.second;
 
-    SpotifyPOST("/v1/users/" + userId + "/playlists", options_t(), authToken, bodyJson);
+    return std::shared_ptr<Playlist>(new Playlist(SpotifyPOST("/v1/users/" + userId + "/playlists", options_t(), authToken, bodyJson.dump(4))));
 }
 
 void SpotifyAPI::EditPlaylist(std::string userId, std::string playlistId, options_t options)
@@ -315,7 +315,7 @@ void SpotifyAPI::EditPlaylist(std::string userId, std::string playlistId, option
     for(auto option : options)
         bodyJson[option.first] = option.second;
 
-    SpotifyPUT("/v1/users/" + userId + "/playlists/" + playlistId, options_t(), authToken, bodyJson);
+    SpotifyPUT("/v1/users/" + userId + "/playlists/" + playlistId, options_t(), authToken, bodyJson.dump(4));
 }
 
 void SpotifyAPI::AddTracksToPlaylist(std::string userId, std::string playlistId, std::vector<std::string> trackUris,
@@ -337,7 +337,7 @@ void SpotifyAPI::RemoveTracksFromPlaylist(std::string userId, std::string playli
     if(!snapshotId.empty())
         bodyJson["snapshot_id"] = snapshotId;
 
-    SpotifyDELETE("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson);
+    SpotifyDELETE("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson.dump(4));
 }
 
 void SpotifyAPI::RemoveTracksFromPlaylist(std::string userId, std::string playlistId,
@@ -356,7 +356,7 @@ void SpotifyAPI::RemoveTracksFromPlaylist(std::string userId, std::string playli
     if(!snapshotId.empty())
         bodyJson["snapshot_id"] = snapshotId;
 
-    SpotifyDELETE("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson);
+    SpotifyDELETE("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson.dump(4));
 }
 
 void SpotifyAPI::RemoveTracksFromPlaylist(std::string userId, std::string playlistId, std::vector<int> positions,
@@ -367,7 +367,7 @@ void SpotifyAPI::RemoveTracksFromPlaylist(std::string userId, std::string playli
         bodyJson["positions"].push_back(position);
     bodyJson["snapshot_id"] = snapshotId;
 
-    SpotifyDELETE("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson);
+    SpotifyDELETE("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson.dump(4));
 }
 
 void SpotifyAPI::ReorderPlaylistTracks(std::string userId, std::string playlistId, int rangeStart, int insertBefore,
@@ -379,7 +379,7 @@ void SpotifyAPI::ReorderPlaylistTracks(std::string userId, std::string playlistI
     for(auto option : options)
         bodyJson[option.first] = option.second;
 
-    SpotifyPUT("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson);
+    SpotifyPUT("/v1/users/" + userId + "/playlists/" + playlistId + "/tracks", options_t(), authToken, bodyJson.dump(4));
 }
 
 void SpotifyAPI::ReplacePlaylistTracks(std::string userId, std::string playlistId, std::vector<std::string> trackUris,

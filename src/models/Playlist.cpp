@@ -2,7 +2,8 @@
 
 Playlist::Playlist(nlohmann::json playlistJson) : PlaylistSimple::PlaylistSimple(playlistJson)
 {
-    description = playlistJson["description"];
+    if(!playlistJson["description"].is_null())
+        description = playlistJson["description"];
     followers = std::shared_ptr<Followers>(new Followers(playlistJson["followers"]));
 }
 
