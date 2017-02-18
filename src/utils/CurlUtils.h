@@ -10,6 +10,17 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
+std::string ReplaceAll(std::string str, const std::string& from, const std::string& to)
+{
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos)
+    {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length();
+    }
+    return str;
+}
+
 nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, std::map<std::string, std::string> options, std::string authToken, std::string body)
 {
     CURL * curl;
@@ -30,6 +41,7 @@ nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, st
             url += option.first + "=" + option.second + '&';
         }
     }
+    url = ReplaceAll(url, " ", "%20");
 
     std::string readBuffer;
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
