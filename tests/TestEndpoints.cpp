@@ -282,7 +282,7 @@ TEST_F(TestEndpoints, SearchArtistsTest)
 
 TEST_F(TestEndpoints, SearchPlaylistsTest)
 {
-    Pager<PlaylistSimple> playlists = api.SearchPlaylists("Today's");
+    Pager<PlaylistSimple> playlists = api.SearchPlaylists("Today's Top Hits");
 
     ASSERT_THAT(playlists.GetItems(), testing::Contains(testing::Property(&PlaylistSimple::GetName, testing::StrEq("Today's Top Hits"))));
 }
