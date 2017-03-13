@@ -2,7 +2,6 @@
 #define SPOTIFY_PLUSPLUS_ERROR_H
 
 #include <string>
-#include <exception>
 #include "utils/json.h"
 
 class Error
