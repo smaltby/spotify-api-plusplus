@@ -2,7 +2,10 @@
 #define SPOTIFY_PLUSPLUS_CURLUTILS_H
 
 #include <curl/curl.h>
+#include "models/Error.h"
 #include "json.h"
+#include "CurlException.h"
+#include "SpotifyException.h"
 
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
 {
@@ -61,14 +64,17 @@ nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, st
     if(!body.empty())
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
 
-
     int rc = curl_easy_perform(curl);
+
+    long statusCode = 0;
+    curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &statusCode);
+    if(statusCode < 200 || statusCode > 202)
+        throw SpotifyException(Error(nlohmann::json::parse(readBuffer)["error"]));
+
     curl_easy_cleanup(curl);
     if (rc != CURLE_OK)
-        std::cerr << "cURL error: " << rc << std::endl;
-    if(!readBuffer.empty())
-        return nlohmann::json::parse(readBuffer);
-    return nlohmann::json();
+        throw CurlException(rc);
+    return nlohmann::json::parse(readBuffer);
 }
 
 nlohmann::json SpotifyGET(std::string endpoint, std::map<std::string, std::string> options, std::string authToken, std::string body = "")

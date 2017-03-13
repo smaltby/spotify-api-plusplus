@@ -43,10 +43,7 @@ protected:
 
         int rc = curl_easy_perform(curl);
         if (rc != CURLE_OK)
-        {
-            std::cerr << "cURL error: " << rc << std::endl;
-            return;
-        }
+            throw CurlException(rc);
         curl_easy_cleanup(curl);
 
         nlohmann::json json = nlohmann::json::parse(readBuffer);
