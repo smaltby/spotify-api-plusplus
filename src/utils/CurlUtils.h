@@ -65,6 +65,8 @@ nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, st
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
 
     int rc = curl_easy_perform(curl);
+    if (rc != CURLE_OK)
+        throw CurlException(rc);
 
     long statusCode = 0;
     curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &statusCode);
@@ -72,8 +74,6 @@ nlohmann::json SpotifyCurlInternal(std::string request, std::string endpoint, st
         throw SpotifyException(Error(nlohmann::json::parse(readBuffer)["error"]));
 
     curl_easy_cleanup(curl);
-    if (rc != CURLE_OK)
-        throw CurlException(rc);
     return nlohmann::json::parse(readBuffer);
 }
 
