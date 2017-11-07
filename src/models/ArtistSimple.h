@@ -7,7 +7,7 @@
 #include <vector>
 #include "Followers.h"
 #include "Image.h"
-#include "utils/json.h"
+#include "../utils/json.h"
 
 class ArtistSimple
 {

@@ -7,7 +7,7 @@
 #include <memory>
 #include "TrackLink.h"
 #include "Artist.h"
-#include "utils/json.h"
+#include "../utils/json.h"
 
 class TrackSimple
 {

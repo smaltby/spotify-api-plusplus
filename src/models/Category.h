@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 #include "Image.h"
-#include "utils/json.h"
+#include "../utils/json.h"
 
 class Category
 {

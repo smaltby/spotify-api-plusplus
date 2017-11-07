@@ -10,7 +10,7 @@
 #include "User.h"
 #include "PlaylistTrack.h"
 #include "Pager.h"
-#include "utils/json.h"
+#include "../utils/json.h"
 
 class PlaylistSimple
 {

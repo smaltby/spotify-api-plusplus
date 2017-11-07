@@ -2,7 +2,7 @@
 #define SPOTIFY_PLUSPLUS_CURLUTILS_H
 
 #include <curl/curl.h>
-#include "models/Error.h"
+#include "../models/Error.h"
 #include "json.h"
 #include "CurlException.h"
 #include "SpotifyException.h"

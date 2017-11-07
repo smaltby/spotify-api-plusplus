@@ -3,7 +3,7 @@
 
 #include <exception>
 #include <sstream>
-#include <models/Error.h>
+#include "../models/Error.h"
 
 class SpotifyException : public std::exception
 {

@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Album.h"
-#include "utils/json.h"
+#include "../utils/json.h"
 
 class SavedAlbum
 {
