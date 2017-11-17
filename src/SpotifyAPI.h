@@ -11,6 +11,10 @@
 #include "models/SavedAlbum.h"
 #include "models/Recommendations.h"
 #include "models/Album.h"
+#include "models/PlayHistoryObject.h"
+#include "models/Device.h"
+#include "models/CurrentlyPlayingContext.h"
+#include "models/CurrentlyPlayingTrack.h"
 
 typedef std::map<std::string, std::string> options_t;
 class SpotifyAPI
@@ -131,6 +135,32 @@ public:
     void ReplacePlaylistTracks(std::string userId, std::string playlistId, std::vector<std::string> trackUris, options_t options = options_t());
 
     bool CheckUserFollowingPlaylist(std::string userId, std::string playlistId, std::vector<std::string> userIds, options_t options = options_t());
+
+    void UploadCustomPlaylistCover(std::string userId, std::string playlistId, std::string contentType, std::string image, options_t options = options_t());
+
+    CursorPager<PlayHistoryObject> GetMyRecentlyPlayed(options_t options = options_t());
+
+    std::vector<std::shared_ptr<Device>> GetMyDevices(options_t options = options_t());
+
+    std::shared_ptr<CurrentlyPlayingContext> GetMyCurrentPlayback(options_t options = options_t());
+
+    std::shared_ptr<CurrentlyPlayingTrack> GetMyCurrentPlayingTrack(options_t options = options_t());
+
+    void TransferMyPlayback(std::string deviceId, options_t options = options_t());
+
+    void Resume(options_t options = options_t());
+
+    void Pause(options_t options = options_t());
+
+    void SkipToNext(options_t options = options_t());
+
+    void SkipToPrevious(options_t options = options_t());
+
+    void SetRepeat(std::string state, options_t options = options_t());
+
+    void SetVolume(int volumePercent, options_t options = options_t());
+
+    void ToggleShuffle(bool state, options_t options = options_t());
 
 private:
     std::string authToken;

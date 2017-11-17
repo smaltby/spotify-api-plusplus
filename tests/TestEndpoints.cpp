@@ -49,6 +49,8 @@ protected:
         nlohmann::json json = nlohmann::json::parse(readBuffer);
         std::string accessToken = json["access_token"];
 
+        std::cout << accessToken << std::endl;
+
         sharedApi.setAuthToken(accessToken);
     }
 
